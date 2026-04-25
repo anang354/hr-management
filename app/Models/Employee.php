@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Education;
 use App\Enums\Gender;
 use App\Enums\Religion;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -40,6 +41,7 @@ class Employee extends Model
         'npwp',
         'bpjs_kesehatan',
         'bpjs_ketenagakerjaan',
+        'ptkp_status',
         'is_active',
         'exit_date',
         'exit_reason',
@@ -67,7 +69,7 @@ class Employee extends Model
 
     protected $casts = [
         'religion' => Religion::class,
-        'education' => Education::class,
+        'last_education' => Education::class,
         'gender' => Gender::class,
         'total_days' => 'float',
     ];
@@ -84,6 +86,18 @@ class Employee extends Model
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class);
+    }
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            set: function ($value) {
+                $cleanValue = preg_replace('/[^0-9]/', '', $value);
+                if (!str_starts_with($cleanValue, '0') && !str_starts_with($cleanValue, '62')) {
+                    return '62' . $cleanValue;
+                }
+                return $cleanValue;
+            },
+        );
     }
     public function leaveRequests(): HasMany
     {

@@ -14,23 +14,25 @@ class EmployeePosTable
     {
         return $table
             ->columns([
-            TextColumn::make('name')
-            ->label(__('employee_pos.fields.name')),
-            TextColumn::make('code')
-            ->label(__('employee_pos.fields.code')),
-            TextColumn::make('employees_active')
-            ->label(__('department.fields.employee_active')),
-        ])
+                TextColumn::make('id')
+                    ->color('danger'),
+                TextColumn::make('name')
+                    ->label(__('employee_pos.fields.name')),
+                TextColumn::make('code')
+                    ->label(__('employee_pos.fields.code')),
+                TextColumn::make('employees_active')
+                    ->label(__('department.fields.employee_active')),
+            ])
             ->filters([
-            //
-        ])
+                //
+            ])
             ->recordActions([
-            EditAction::make(),
-        ])
+                EditAction::make(),
+            ])
             ->toolbarActions([
-            BulkActionGroup::make([
-                DeleteBulkAction::make(),
-            ]),
-        ]);
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 }

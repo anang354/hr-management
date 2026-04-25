@@ -2,8 +2,12 @@
 
 namespace App\Filament\Resources\Employees\Pages;
 
+use App\Filament\Exports\EmployeeExporter;
+use App\Filament\Imports\EmployeeImporter;
 use App\Filament\Resources\Employees\EmployeeResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
+use Filament\Actions\ImportAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -15,7 +19,16 @@ class ListEmployees extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->icon('heroicon-o-plus-circle'),
+            ImportAction::make()
+                ->color('success')
+                ->icon('heroicon-o-arrow-up-tray')
+                ->importer(EmployeeImporter::class),
+            ExportAction::make()
+                ->color('info')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->exporter(EmployeeExporter::class),
         ];
     }
     public function getTabs(): array

@@ -15,24 +15,26 @@ class DepartmentsTable
     {
         return $table
             ->columns([
-            TextColumn::make('name')
-            ->label(__('department.fields.name')),
-            TextColumn::make('code')
-            ->label(__('department.fields.code')),
-            TextColumn::make('employees_active')
-            ->label(__('department.fields.employee_active')),
-        ])
+                TextColumn::make('id')
+                    ->color('danger'),
+                TextColumn::make('name')
+                    ->label(__('department.fields.name')),
+                TextColumn::make('code')
+                    ->label(__('department.fields.code')),
+                TextColumn::make('employees_active')
+                    ->label(__('department.fields.employee_active')),
+            ])
             ->filters([
-            //
-        ])
+                //
+            ])
             ->recordActions([
-            EditAction::make(),
-            DeleteAction::make(),
-        ])
+                EditAction::make(),
+                DeleteAction::make(),
+            ])
             ->toolbarActions([
-            BulkActionGroup::make([
-                DeleteBulkAction::make(),
-            ]),
-        ]);
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                ]),
+            ]);
     }
 }
