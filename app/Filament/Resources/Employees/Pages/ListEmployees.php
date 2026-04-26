@@ -5,6 +5,9 @@ namespace App\Filament\Resources\Employees\Pages;
 use App\Filament\Exports\EmployeeExporter;
 use App\Filament\Imports\EmployeeImporter;
 use App\Filament\Resources\Employees\EmployeeResource;
+use App\Filament\Resources\Employees\Pages\ExitEmployees;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\ExportAction;
 use Filament\Actions\ImportAction;
@@ -21,14 +24,27 @@ class ListEmployees extends ListRecords
         return [
             CreateAction::make()
                 ->icon('heroicon-o-plus-circle'),
-            ImportAction::make()
-                ->color('success')
-                ->icon('heroicon-o-arrow-up-tray')
-                ->importer(EmployeeImporter::class),
-            ExportAction::make()
+            ActionGroup::make([
+                ImportAction::make()
+                    ->label(__('employee.actions.import'))
+                    ->color('success')
+                    ->icon('heroicon-o-arrow-up-tray')
+                    ->importer(EmployeeImporter::class),
+                ExportAction::make()
+                    ->label(__('employee.actions.export'))
+                    ->color('info')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->exporter(EmployeeExporter::class),
+                Action::make('exit')
+                    ->label(__('employee.actions.lay_off'))
+                    ->color('danger')
+                    ->icon('heroicon-o-user-minus')
+                    ->url(ExitEmployees::getUrl()),
+            ])
+                ->label(__('employee.actions.more_actions'))
+                ->icon('heroicon-m-ellipsis-vertical')
                 ->color('info')
-                ->icon('heroicon-o-arrow-down-tray')
-                ->exporter(EmployeeExporter::class),
+                ->button(),
         ];
     }
     public function getTabs(): array

@@ -62,4 +62,11 @@ return [
         'active' => 'Active',
         'inactive' => 'Inactive',
     ],
+    'actions' => [
+        'more_actions' => 'More actions',
+        'process_now' => 'Process Now',
+        'lay_off' => 'Lay Off',
+        'import' => 'Import',
+        'export' => 'Export',
+    ],
 ];

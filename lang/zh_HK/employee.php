@@ -62,4 +62,11 @@ return [
         'active' => '在職',
         'inactive' => '離職',
     ],
+    'actions' => [
+        'more_actions' => '更多操作',
+        'process_now' => '立即處理',
+        'lay_off' => '解雇',
+        'import' => '導入',
+        'export' => '導出',
+    ]
 ];
