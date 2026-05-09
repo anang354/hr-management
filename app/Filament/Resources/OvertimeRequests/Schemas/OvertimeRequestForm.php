@@ -93,6 +93,7 @@ class OvertimeRequestForm
                                             ->pluck('name', 'id');
                                     })
                                     ->getOptionLabelUsing(fn($value) => Employee::find($value)?->name)
+                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                                     ->required(),
                                 Components\TimePicker::make('start_time')
                                     ->required()
@@ -109,7 +110,8 @@ class OvertimeRequestForm
                                 Components\TextInput::make('overtime_hours')
                                     ->numeric()
                                     ->required(),
-                            ])->columns(4)->columnSpanFull(),
+                            ])->columns(4)
+                            ->columnSpanFull(),
                     ])
             ]);
     }

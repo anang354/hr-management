@@ -34,5 +34,8 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    'zkteco' => [
+        'ip' => env('ZKTECO_MACHINE_IP', '[IP_ADDRESS]'),
+        'port' => env('ZKTECO_MACHINE_PORT', 4370),
+    ],
 ];

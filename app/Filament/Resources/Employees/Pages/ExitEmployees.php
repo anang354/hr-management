@@ -13,7 +13,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
-use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class ExitEmployees extends Page implements HasForms
