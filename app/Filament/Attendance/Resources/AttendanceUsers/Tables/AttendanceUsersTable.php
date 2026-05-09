@@ -21,6 +21,8 @@ class AttendanceUsersTable
                 TextColumn::make('display_name')
                     ->label('Display Name')
                     ->searchable(),
+                TextColumn::make('employee.department.name')
+                    ->label('Departemen'),
                 TextColumn::make('last_sync')
                     ->label('Last Sync')
                     ->dateTime('Y-m-d H:i:s')

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('early_leave')->default(0); // in minutes
             $table->float('overtime_hours')->default(0);
             $table->float('working_hours')->default(0);
-            $table->string('status'); // Hadir, Alfa, Izin
+            $table->string('status', 25)->nullable(); // Hadir, Alfa, Izin
             $table->timestamps();
         });
     }

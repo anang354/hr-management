@@ -15,7 +15,13 @@ class AttendanceUserForm
         return $schema
             ->components([
                 Select::make('employee_id')
-                ->relationship('employee', 'name')
+                ->relationship('employee', 'name', fn ($query, ?AttendanceUser $record) => $query->where('is_active', true)
+                    ->where(function ($q) use ($record) {
+                        $q->doesntHave('attendanceUser');
+                        if ($record) {
+                            $q->orWhere('id', $record->employee_id);
+                        }
+                    }))
                 ->searchable()
                 ->preload(),
                 TextInput::make('biometric_id')

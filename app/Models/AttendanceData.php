@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\AttendanceStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,6 +20,10 @@ class AttendanceData extends Model
         'overtime_hours',
         'working_hours',
         'status',
+    ];
+
+    protected $casts = [
+        'status' => AttendanceStatus::class,
     ];
 
     public function attendance_user(): BelongsTo

@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('attendance_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->nullable()->constrained('employees')->nullOnDelete();
-            $table->string('biometric_id')->unique(); // PIN/User ID di mesin
-            $table->string('display_name')->nullable()->index();
+            $table->string('biometric_id', 10)->unique(); // PIN/User ID di mesin
+            $table->string('display_name', 100)->nullable()->index();
             $table->integer('privilege')->default(0); // 0=User, 14=Admin
-            $table->string('card_number')->nullable();
-            $table->string('password')->nullable();
+            $table->string('card_number', 25)->nullable();
+            $table->string('password', 25)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamp('last_sync')->nullable();
             $table->timestamps();

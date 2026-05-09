@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('attendance_shifts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 50);
             $table->time('check_in_time');
             $table->time('check_out_time');
             $table->time('check_in_start');

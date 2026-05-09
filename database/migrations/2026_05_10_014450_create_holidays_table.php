@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('attendance_logs', function (Blueprint $table) {
+        Schema::create('holidays', function (Blueprint $table) {
             $table->id();
-            $table->string('biometric_id', 10)->index();
-            $table->string('attendance_time', 100)->nullable();
-            $table->integer('type')->nullable();
+            $table->date('holiday_date')->unique();
+            $table->string('description', 100);
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendance_logs');
+        Schema::dropIfExists('holidays');
     }
 };
