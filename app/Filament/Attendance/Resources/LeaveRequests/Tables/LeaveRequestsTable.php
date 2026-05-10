@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\LeaveRequests\Tables;
+namespace App\Filament\Attendance\Resources\LeaveRequests\Tables;
 
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;

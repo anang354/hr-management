@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\OvertimeRequests\Pages;
+namespace App\Filament\Attendance\Resources\OvertimeRequests\Pages;
 
-use App\Filament\Resources\OvertimeRequests\OvertimeRequestResource;
-use App\Models\OvertimeRequest;
+use App\Filament\Attendance\Resources\OvertimeRequests\OvertimeRequestResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Schemas\Components\Tabs\Tab;

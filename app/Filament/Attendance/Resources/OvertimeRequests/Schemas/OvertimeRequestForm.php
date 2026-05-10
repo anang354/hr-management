@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\OvertimeRequests\Schemas;
+namespace App\Filament\Attendance\Resources\OvertimeRequests\Schemas;
 
 use App\Models\Employee;
 use Filament\Forms\Components;

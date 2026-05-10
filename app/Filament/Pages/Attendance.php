@@ -23,6 +23,11 @@ class Attendance extends Page implements HasTable
     protected string $view = 'filament.pages.attendance';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDateRange;
 
+    public static function canAccess(): bool
+    {
+        return false; // Fitur dinonaktifkan total untuk sementara
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return __('attendances.navigation_group') ?? null;

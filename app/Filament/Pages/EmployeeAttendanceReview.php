@@ -24,6 +24,12 @@ class EmployeeAttendanceReview extends Page implements HasForms, HasTable
     use InteractsWithForms, InteractsWithTable;
     protected string $view = 'filament.pages.employee-attendance-review';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::AtSymbol;
+
+    public static function canAccess(): bool
+    {
+        return false; // Fitur dinonaktifkan total untuk sementara
+    }
+
     public static function getNavigationGroup(): ?string
     {
         return __('attendances.navigation_group') ?? null;

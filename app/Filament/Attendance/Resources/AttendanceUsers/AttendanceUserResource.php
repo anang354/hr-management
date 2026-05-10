@@ -20,6 +20,11 @@ class AttendanceUserResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Attendance';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return AttendanceUserForm::configure($schema);

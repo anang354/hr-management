@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\OvertimeRequests;
+namespace App\Filament\Attendance\Resources\OvertimeRequests;
 
-use App\Filament\Resources\OvertimeRequests\Pages\CreateOvertimeRequest;
-use App\Filament\Resources\OvertimeRequests\Pages\EditOvertimeRequest;
-use App\Filament\Resources\OvertimeRequests\Pages\ListOvertimeRequests;
-use App\Filament\Resources\OvertimeRequests\Schemas\OvertimeRequestForm;
-use App\Filament\Resources\OvertimeRequests\Tables\OvertimeRequestsTable;
+use App\Filament\Attendance\Resources\OvertimeRequests\Pages\CreateOvertimeRequest;
+use App\Filament\Attendance\Resources\OvertimeRequests\Pages\EditOvertimeRequest;
+use App\Filament\Attendance\Resources\OvertimeRequests\Pages\ListOvertimeRequests;
+use App\Filament\Attendance\Resources\OvertimeRequests\Schemas\OvertimeRequestForm;
+use App\Filament\Attendance\Resources\OvertimeRequests\Tables\OvertimeRequestsTable;
 use App\Models\OvertimeRequest;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -64,7 +64,7 @@ class OvertimeRequestResource extends Resource
                 ->count();
         }
 
-        // Role lain (seperti Leader) tidak menampilkan badge 
+        // Role lain (seperti Leader) tidak menampilkan badge
         return null;
     }
     public static function getNavigationBadgeColor(): ?string

@@ -6,6 +6,7 @@ use App\Models\AttendanceUser;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 
 class AttendanceUserForm
@@ -22,6 +23,12 @@ class AttendanceUserForm
                             $q->orWhere('id', $record->employee_id);
                         }
                     }))
+                ->afterStateUpdated(function (Set $set, ?string $state) {
+                    $employee = \App\Models\Employee::findOrFail($state);
+                    $set('display_name', rtrim(substr($employee->name, 0, 20)));
+                    $set('password', \Carbon\Carbon::parse($employee->birth_date)->format('dmY'));
+                })
+                ->reactive()
                 ->searchable()
                 ->preload(),
                 TextInput::make('biometric_id')
@@ -45,6 +52,7 @@ class AttendanceUserForm
                     ->numeric(),
                 TextInput::make('password')
                     ->label('Password')
+                    ->revealable()
                     ->password(),
                 Toggle::make('is_active')
                     ->label('Active')

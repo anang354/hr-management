@@ -18,6 +18,11 @@ class AttendanceData extends Page implements HasTable
     protected string $view = 'filament.attendance.pages.attendance-data';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Attendance';
+    }
+
     public function table(Table $table): Table
     {
         return $table->query(\App\Models\AttendanceData::query())
@@ -65,7 +70,6 @@ class AttendanceData extends Page implements HasTable
                     ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
                     ->label('Pulang Cepat'),
                 TextInputColumn::make('overtime_hours')
-                    ->disabled(fn() => auth()->user()->role === 'admin')
                     ->label('Lembur'),
                 TextInputColumn::make('working_hours')
                     ->label('Jam Kerja'),

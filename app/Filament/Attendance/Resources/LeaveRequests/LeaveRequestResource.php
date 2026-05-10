@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\LeaveRequests;
+namespace App\Filament\Attendance\Resources\LeaveRequests;
 
-use App\Filament\Resources\LeaveRequests\Pages\CreateLeaveRequest;
-use App\Filament\Resources\LeaveRequests\Pages\EditLeaveRequest;
-use App\Filament\Resources\LeaveRequests\Pages\ListLeaveRequests;
-use App\Filament\Resources\LeaveRequests\Schemas\LeaveRequestForm;
-use App\Filament\Resources\LeaveRequests\Tables\LeaveRequestsTable;
+use App\Filament\Attendance\Resources\LeaveRequests\Pages\CreateLeaveRequest;
+use App\Filament\Attendance\Resources\LeaveRequests\Pages\EditLeaveRequest;
+use App\Filament\Attendance\Resources\LeaveRequests\Pages\ListLeaveRequests;
+use App\Filament\Attendance\Resources\LeaveRequests\Schemas\LeaveRequestForm;
+use App\Filament\Attendance\Resources\LeaveRequests\Tables\LeaveRequestsTable;
 use App\Models\LeaveRequest;
 use BackedEnum;
 use Filament\Resources\Resource;

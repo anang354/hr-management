@@ -5,7 +5,6 @@ namespace App\Filament\Attendance\Resources\AttendanceLogs\Tables;
 use Carbon\Carbon;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -36,6 +35,9 @@ class AttendanceLogsTable
                 TextColumn::make('type')
                     ->label('Type')
                     ->badge(),
+                TextColumn::make('verify_method')
+                    ->label('Login by')
+                    ->badge()
             ])
             ->filters([
                 SelectFilter::make('type')
@@ -44,13 +46,21 @@ class AttendanceLogsTable
                         '0' => 'Masuk',
                         '1' => 'Keluar',
                     ]),
+                SelectFilter::make('verify_method')
+                    ->label('Login by')
+                    ->options([
+                        '1' => 'Finger',
+                        '2' => 'Lock',
+                        '3' => 'Key',
+                        '4' => 'Card',
+                    ]),
             ])
             ->recordActions([
                 // EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    // DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AttendanceType;
+use App\Enums\VerifyMethod;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -17,6 +18,7 @@ class AttendanceLog extends Model
     protected $casts = [
         'type' => AttendanceType::class,
         'attendance_time' => 'datetime',
+        'verify_method' => VerifyMethod::class,
     ];
 
     public function attendanceUser(): HasOne

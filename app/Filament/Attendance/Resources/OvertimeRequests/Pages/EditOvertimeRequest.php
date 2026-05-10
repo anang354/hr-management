@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\OvertimeRequests\Pages;
+namespace App\Filament\Attendance\Resources\OvertimeRequests\Pages;
 
-use App\Filament\Resources\OvertimeRequests\OvertimeRequestResource;
+use App\Filament\Attendance\Resources\OvertimeRequests\OvertimeRequestResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 

@@ -10,7 +10,7 @@ Route::get('/', function () {
     $zk = new ZKLibrary('132.168.65.250', 4370);
     try {
         $zk->connect();
-        $getUser = $zk->getUser();
+        $getUser = $zk->getAttendance();
         dd($getUser);
         $zk->disconnect();
     } catch (\Exception $e) {

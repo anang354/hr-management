@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\LeaveRequests\Pages;
+namespace App\Filament\Attendance\Resources\LeaveRequests\Pages;
 
-use App\Filament\Resources\LeaveRequests\LeaveRequestResource;
+use App\Filament\Attendance\Resources\LeaveRequests\LeaveRequestResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Schemas\Components\Tabs\Tab;

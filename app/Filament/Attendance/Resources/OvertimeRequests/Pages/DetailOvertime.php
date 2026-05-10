@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\OvertimeRequests\Pages;
+namespace App\Filament\Attendance\Resources\OvertimeRequests\Pages;
 
 use App\Enums\OvertimeItemStatus;
 use App\Enums\OvertimeStatus;
-use App\Filament\Resources\OvertimeRequests\OvertimeRequestResource;
+use App\Filament\Attendance\Resources\OvertimeRequests\OvertimeRequestResource;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;

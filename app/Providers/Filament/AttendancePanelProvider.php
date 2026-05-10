@@ -34,6 +34,7 @@ class AttendancePanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Attendance/Pages'), for: 'App\Filament\Attendance\Pages')
             ->pages([
                 Dashboard::class,
+                \App\Filament\Resources\Employees\EmployeeResource::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Attendance/Widgets'), for: 'App\Filament\Attendance\Widgets')
             ->widgets([

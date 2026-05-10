@@ -26,6 +26,11 @@ class AttendanceShift extends Page implements HasForms, HasTable
     protected string $view = 'filament.attendance.pages.attendance-shift';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClock;
 
+    public static function getNavigationLabel(): string
+    {
+        return 'Shift';
+    }
+
     protected function getShiftFormSchema(): array
     {
         return [

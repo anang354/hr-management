@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\OvertimeRequests\Tables;
+namespace App\Filament\Attendance\Resources\OvertimeRequests\Tables;
 
 use App\Enums\OvertimeStatus;
 use Filament\Actions\Action;
@@ -12,7 +12,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use App\Filament\Resources\OvertimeRequests\OvertimeRequestResource;
+use App\Filament\Attendance\Resources\OvertimeRequests\OvertimeRequestResource;
 
 class OvertimeRequestsTable
 {
