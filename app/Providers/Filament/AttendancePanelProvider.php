@@ -30,6 +30,8 @@ class AttendancePanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Purple,
             ])
+            ->maxContentWidth('full')
+            ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Attendance/Resources'), for: 'App\Filament\Attendance\Resources')
             ->discoverPages(in: app_path('Filament/Attendance/Pages'), for: 'App\Filament\Attendance\Pages')
             ->pages([
