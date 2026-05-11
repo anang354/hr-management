@@ -81,6 +81,18 @@ class AttendanceData extends Page implements HasTable
                 SelectFilter::make('attendance_shift_id')
                     ->label('Shift')
                     ->relationship('attendance_shift', 'name'),
+                SelectFilter::make('status')
+                    ->label('Status')
+                    ->multiple()
+                    ->options([
+                        'Hadir' => 'Hadir',
+                        'Sakit' => 'Sakit',
+                        'Izin' => 'Izin',
+                        'Cuti' => 'Cuti',
+                        'Lembur' => 'Lembur',
+                        'Alpha' => 'Alpha',
+                        'Libur' => 'Libur',
+                    ]),
             ])
             ->actions([])
             ->defaultSort('created_at', 'desc');
