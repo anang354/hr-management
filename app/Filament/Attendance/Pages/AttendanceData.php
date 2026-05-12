@@ -6,7 +6,6 @@ use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
@@ -25,13 +24,15 @@ class AttendanceData extends Page implements HasTable
 
     public function table(Table $table): Table
     {
-        return $table->query(\App\Models\AttendanceData::query())
+        return $table->query(\App\Models\AttendanceData::query()->where('date', '>=', \Carbon\Carbon::now()->subMonths(2)))
             ->columns([
                 TextColumn::make('date')->label('Tanggal')
                 ->date('d M Y'),
                 TextColumn::make('attendance_user.display_name')
                     ->searchable()
                     ->label('Karyawan'),
+                TextColumn::make('attendance_user.employee.department.name')
+                    ->label('Departemen'),
                 TextColumn::make('attendance_shift.name')
                     ->badge()
                     ->color(function ($record) {
@@ -69,9 +70,9 @@ class AttendanceData extends Page implements HasTable
                     ->toggleable(true, isToggledHiddenByDefault: true)
                     ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
                     ->label('Pulang Cepat'),
-                TextInputColumn::make('overtime_hours')
+                TextColumn::make('overtime_hours')
                     ->label('Lembur'),
-                TextInputColumn::make('working_hours')
+                TextColumn::make('working_hours')
                     ->label('Jam Kerja'),
                 TextColumn::make('status')
                     ->badge()

@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class AttendanceLogResource extends Resource
 {
@@ -23,6 +24,12 @@ class AttendanceLogResource extends Resource
     public static function getNavigationGroup(): ?string
     {
         return 'Attendance';
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->where('created_at', '>=', \Carbon\Carbon::now()->subMonths(2));
     }
 
     public static function form(Schema $schema): Schema

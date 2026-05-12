@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('attendance_logs', function (Blueprint $table) {
             $table->id();
             $table->string('biometric_id', 10)->index();
-            $table->string('attendance_time', 100)->nullable();
+            $table->timestamp('attendance_time')->nullable();
             $table->integer('type')->nullable();
             $table->timestamps();
         });

@@ -18,7 +18,8 @@ class AttendanceProcessor
     public function process($biometricId, $logTime, $type)
     {
         $typeValue = is_object($type) ? $type->value : $type;
-        // 1. Cari Karyawan & Baris Kehadiran Hari Ini
+
+        // 1. Cari Karyawan
         $employee = AttendanceUser::where('biometric_id', $biometricId)->first();
         if (!$employee) return;
 
@@ -26,43 +27,62 @@ class AttendanceProcessor
         $timeOnly = $currentTime->format('H:i:s');
         $dateOnly = $currentTime->format('Y-m-d');
 
-        $shift = $this->findMatchingShift($timeOnly, $typeValue);
-        if (!$shift) return;
+        // Ambil record kehadiran hari ini (jika sudah ada)
+        $attendance = AttendanceData::firstOrNew(['user_id' => $employee->id, 'date' => $dateOnly]);
 
-        if ($typeValue == 0) { // CHECK-IN
-            $isOffDay = $this->attendanceService->isHolidayOrWeekend($dateOnly);
-            $status = $isOffDay ? 'Lembur' : 'Hadir';
-            AttendanceData::updateOrCreate(
-                ['user_id' => $employee->id, 'date' => $dateOnly],
-                [
-                    'shift_id' => $shift->id,
-                    'clock_in' => $currentTime,
-                    'status' => $status,
-                    'coming_late' => $this->calculateLatePenalty($currentTime, $shift),
-                ]
-            );
+        // --- PROSES CHECK-IN (TYPE 0) ---
+        if ($typeValue == 0) {
+            // LOGIKA KONFLIK: Hanya update jika clock_in masih kosong
+            // ATAU jika jam tap baru lebih awal dari yang sudah tercatat
+            if (!$attendance->clock_in || $currentTime->lt(Carbon::parse($attendance->clock_in))) {
+
+                $shift = $this->findMatchingShift($timeOnly, 0);
+                if ($shift) {
+                    $isOffDay = $this->attendanceService->isHolidayOrWeekend($dateOnly);
+
+                    $attendance->shift_id = $shift->id;
+                    $attendance->clock_in = $currentTime;
+                    $attendance->status = $isOffDay ? 'Lembur' : 'Hadir';
+                    $attendance->coming_late = $this->calculateLatePenalty($currentTime, $shift);
+                    $attendance->save();
+                }
+            }
         }
 
-        else if ($typeValue == 1) { // CHECK-OUT
+        // --- PROSES CHECK-OUT (TYPE 1) ---
+        else if ($typeValue == 1) {
+            // Gunakan shift dari data masuk (jika ada) agar tidak berubah shift di tengah jalan
+            // Jika belum ada data masuk, baru cari shift berdasarkan waktu tap saat ini
+            $activeShiftId = $attendance->shift_id;
+            $currentShift = $activeShiftId ? AttendanceShift::find($activeShiftId) : $this->findMatchingShift($timeOnly, 1);
+
+            if (!$currentShift) return;
+
             // Tentukan Tanggal Target (H-1 jika cross day)
-            $targetDate = $shift->is_cross_day ? $currentTime->copy()->subDay()->format('Y-m-d') : $dateOnly;
-            $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($targetDate);
-            $attendance = AttendanceData::where('user_id', $employee->id)
-                                    ->where('date', $targetDate)
-                                    ->first();
+            $targetDate = $currentShift->is_cross_day ? $currentTime->copy()->subDay()->format('Y-m-d') : $dateOnly;
 
-            if ($attendance && $attendance->clock_in) {
-                $clockIn = Carbon::parse($attendance->clock_in);
-                $metrics = $this->calculateExitMetrics($currentTime, $clockIn, $shift);
-                // Jika hari libur saat mulai masuk, maka working_hours dihitung full sebagai overtime
-                $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
+            // Cari record pada targetDate (untuk shift malam, targetDate adalah hari sebelumnya)
+            $targetAttendance = ($targetDate === $dateOnly) ? $attendance : AttendanceData::where('user_id', $employee->id)->where('date', $targetDate)->first();
 
-                $attendance->update([
-                    'clock_out' => $currentTime,
-                    'early_leave' => $metrics['early_leave'],
-                    'overtime_hours' => $overtimeFinal,
-                    'working_hours' => $metrics['working_hours'],
-                ]);
+            if ($targetAttendance && $targetAttendance->clock_in) {
+
+                // LOGIKA KONFLIK: Hanya update jika clock_out masih kosong
+                // ATAU jika jam tap baru lebih akhir dari yang sudah tercatat
+                if (!$targetAttendance->clock_out || $currentTime->gt(Carbon::parse($targetAttendance->clock_out))) {
+
+                    $clockIn = Carbon::parse($targetAttendance->clock_in);
+                    $metrics = $this->calculateExitMetrics($currentTime, $clockIn, $currentShift);
+
+                    $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($targetDate);
+                    $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
+
+                    $targetAttendance->update([
+                        'clock_out' => $currentTime,
+                        'early_leave' => $metrics['early_leave'],
+                        'overtime_hours' => (float) (floor($overtimeFinal * 2) / 2),
+                        'working_hours' => (float) (floor($metrics['working_hours'] * 2) / 2),
+                    ]);
+                }
             }
         }
     }
