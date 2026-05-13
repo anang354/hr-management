@@ -39,7 +39,7 @@ enum VerifyMethod: int implements HasLabel, HasColor, HasIcon
             self::Finger => 'heroicon-o-finger-print',
             self::Lock => 'heroicon-o-lock-closed',
             self::Key => 'heroicon-o-key',
-            self::Card => 'heroicon-o-id-card',
+            self::Card => 'heroicon-o-credit-card',
         };
     }
 }
