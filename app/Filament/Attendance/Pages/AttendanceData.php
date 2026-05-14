@@ -95,7 +95,27 @@ class AttendanceData extends Page implements HasTable
                         'Libur' => 'Libur',
                     ]),
             ])
-            ->actions([])
+            ->actions([
+                \Filament\Actions\Action::make('koreksi')
+                    ->label('Koreksi')
+                    ->icon('heroicon-o-pencil-square')
+                    ->color('warning')
+                    ->form([
+                        \Filament\Forms\Components\Select::make('shift_id')
+                            ->label('Pilih Shift yang Benar')
+                            ->options(\App\Models\AttendanceShift::pluck('name', 'id'))
+                            ->required()
+                            ->default(fn ($record) => $record->shift_id),
+                    ])
+                    ->action(function ($record, array $data, \App\Services\AttendanceProcessor $processor) {
+                        $processor->reprocessManual($record->id, $data['shift_id']);
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Data Berhasil Dikoreksi')
+                            ->success()
+                            ->send();
+                    })
+            ])
             ->defaultSort('created_at', 'desc');
     }
 }

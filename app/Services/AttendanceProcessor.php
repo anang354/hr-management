@@ -162,4 +162,75 @@ class AttendanceProcessor
         }
         return null;
     }
+
+    public function reprocessManual($attendanceId, $newShiftId)
+    {
+        $attendance = AttendanceData::find($attendanceId);
+        $shift = AttendanceShift::find($newShiftId);
+        $biometricId = $attendance->attendance_user->biometric_id;
+
+        $dateIn = $attendance->date;
+        $clockIn = null;
+        $clockOut = null;
+
+        if (!$shift->is_cross_day) {
+            // --- LOGIKA SHIFT SIANG (Satu Hari) ---
+            // Ambil semua log di tanggal tersebut
+            $logs = \App\Models\AttendanceLog::where('biometric_id', $biometricId)
+                ->whereDate('attendance_time', $dateIn)
+                ->orderBy('attendance_time', 'asc')
+                ->get();
+
+            if ($logs->isNotEmpty()) {
+                $clockIn = $logs->first()->attendance_time;
+                // Pastikan clock_out berbeda dengan clock_in
+                if ($logs->count() > 1) {
+                    $clockOut = $logs->last()->attendance_time;
+                }
+            }
+        } else {
+            // --- LOGIKA SHIFT MALAM (Beda Hari) ---
+            $dateOut = \Carbon\Carbon::parse($dateIn)->addDay()->format('Y-m-d');
+
+            // Cari jam masuk: Ambil log paling awal di sore/malam hari H
+            $clockIn = \App\Models\AttendanceLog::where('biometric_id', $biometricId)
+                ->whereDate('attendance_time', $dateIn)
+                ->whereTime('attendance_time', '>=', '12:00:00') // Ambang batas siang
+                ->orderBy('attendance_time', 'asc')
+                ->first()?->attendance_time;
+
+            // Cari jam pulang: Ambil log paling akhir di pagi/siang hari H+1
+            $clockOut = \App\Models\AttendanceLog::where('biometric_id', $biometricId)
+                ->whereDate('attendance_time', $dateOut)
+                ->whereTime('attendance_time', '<=', '12:00:00') // Ambang batas siang besoknya
+                ->orderBy('attendance_time', 'desc')
+                ->first()?->attendance_time;
+        }
+
+        // Hitung ulang metrik menggunakan fungsi yang sudah Anda miliki
+        $status = $this->attendanceService->isHolidayOrWeekend($dateIn) ? 'Lembur' : 'Hadir';
+
+        $late = $clockIn ? $this->calculateLatePenalty(\Carbon\Carbon::parse($clockIn), $shift) : 0;
+
+        $metrics = ['early_leave' => 0, 'overtime_hours' => 0, 'working_hours' => 0];
+        if ($clockIn && $clockOut) {
+            $metrics = $this->calculateExitMetrics(
+                \Carbon\Carbon::parse($clockOut),
+                \Carbon\Carbon::parse($clockIn),
+                $shift
+            );
+        }
+
+        // Update data final
+        $attendance->update([
+            'shift_id' => $shift->id,
+            'clock_in' => $clockIn,
+            'clock_out' => $clockOut,
+            'status' => $status,
+            'coming_late' => $late,
+            'early_leave' => $metrics['early_leave'],
+            'overtime_hours' => $metrics['overtime_hours'],
+            'working_hours' => $metrics['working_hours'],
+        ]);
+    }
 }

@@ -7,15 +7,7 @@ use App\Livewire\AttendancePage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $zk = new ZKLibrary('132.168.65.250', 4370);
-    try {
-        $zk->connect();
-        $getUser = $zk->getAttendance();
-        dd($getUser);
-        $zk->disconnect();
-    } catch (\Exception $e) {
-        return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-    }
+    return view('welcome');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('admin/contract-settings/preview', [ContractSettingsController::class, 'index'])->name('contract-settings-preview');
