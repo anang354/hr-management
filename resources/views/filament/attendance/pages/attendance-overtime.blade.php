@@ -54,11 +54,11 @@
                                 </td>
 
                                 <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
-                                    {{ $item->attendance_user->display_name }}
+                                    {{ $item->attendance_user?->display_name }}
                                 </td>
 
                                 <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
-                                    {{ $item->attendance_shift->name }}
+                                    {{ $item->attendance_shift?->name }}
                                 </td>
 
                                 <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
