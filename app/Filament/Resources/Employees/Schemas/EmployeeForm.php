@@ -68,8 +68,11 @@ class EmployeeForm
                             ->options(Employee::BLOOD_GROUP)
                             ->prefixIcon('heroicon-o-beaker')
                             ->label(__('employee.fields.blood_group')),
-                        Select::make('last_education')
-                            ->options(Education::class)
+                        // Select::make('last_education')
+                        //     ->options(Education::class)
+                        //     ->prefixIcon('heroicon-o-academic-cap')
+                        //     ->label(__('employee.fields.last_education')),
+                        TextInput::make('last_education')
                             ->prefixIcon('heroicon-o-academic-cap')
                             ->label(__('employee.fields.last_education')),
                     ])->columnSpan(4)->columns(2),

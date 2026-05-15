@@ -70,7 +70,7 @@ class Employee extends Model
 
     protected $casts = [
         'religion' => Religion::class,
-        'last_education' => Education::class,
+        // 'last_education' => Education::class,
         'gender' => Gender::class,
         'total_days' => 'float',
     ];
