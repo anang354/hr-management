@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Employees\Schemas;
 
-use App\Enums\Education;
 use App\Enums\Gender;
 use App\Enums\Religion;
 use App\Models\Employee;

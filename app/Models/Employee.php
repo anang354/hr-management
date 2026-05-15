@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\Education;
 use App\Enums\Gender;
 use App\Enums\Religion;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -71,7 +70,6 @@ class Employee extends Model
 
     protected $casts = [
         'religion' => Religion::class,
-        // 'last_education' => Education::class,
         'gender' => Gender::class,
         'total_days' => 'float',
     ];
