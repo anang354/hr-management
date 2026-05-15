@@ -32,17 +32,22 @@ class AttendancePanelProvider extends PanelProvider
             ])
             ->maxContentWidth('full')
             ->viteTheme('resources/css/filament/admin/theme.css')
+            ->databaseNotifications()
             ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Attendance/Resources'), for: 'App\Filament\Attendance\Resources')
             ->discoverPages(in: app_path('Filament/Attendance/Pages'), for: 'App\Filament\Attendance\Pages')
             ->pages([
                 Dashboard::class,
                 \App\Filament\Resources\Employees\EmployeeResource::class,
+                \App\Filament\Resources\EmployeePos\EmployeePosResource::class,
+                \App\Filament\Resources\Departments\DepartmentResource::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Attendance/Widgets'), for: 'App\Filament\Attendance\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                // AccountWidget::class,
+                // FilamentInfoWidget::class,
+                \App\Filament\Widgets\GenderChart::class,
+                \App\Filament\Widgets\ReligionChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

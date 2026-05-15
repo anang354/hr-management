@@ -29,6 +29,10 @@ class AttendanceUser extends Model
     {
         return $this->hasMany(AttendanceData::class, 'user_id', 'id');
     }
+    public function biometricBackups(): HasMany
+    {
+        return $this->hasMany(BiometricBackup::class, 'biometric_id', 'biometric_id');
+    }
     public static function getNextAvailableBiometricId()
     {
         // Cari ID terkecil yang hilang (The Gap)

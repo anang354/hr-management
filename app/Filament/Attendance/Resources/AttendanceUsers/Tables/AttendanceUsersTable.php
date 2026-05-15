@@ -24,10 +24,16 @@ class AttendanceUsersTable
                     ->searchable(),
                 TextColumn::make('employee.department.name')
                     ->label('Departemen'),
-                TextColumn::make('last_sync')
-                    ->label('Last Sync')
-                    ->dateTime('Y-m-d H:i:s')
-                    ->sortable(),
+                TextColumn::make('biometric_backups_count')
+                ->counts('biometricBackups') // Nama fungsi relasi di model
+                ->label('Jumlah Jari')
+                ->badge() // Opsional: agar tampil seperti lencana
+                ->color(fn (int $state): string => match (true) {
+                    $state === 0 => 'danger',
+                    $state === 1 => 'info',
+                    default => 'success',
+                })
+                ->icon('heroicon-o-finger-print'),
             ])
             ->filters([
                 //
