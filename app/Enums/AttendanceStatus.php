@@ -26,6 +26,31 @@ enum AttendanceStatus: string implements HasLabel, HasColor
             self::Libur => 'Libur',
         };
     }
+    // Method untuk mendapatkan singkatan
+    public function shortLabel(): string
+    {
+        return match($this) {
+            self::Hadir => 'H',
+            self::Sakit => 'S',
+            self::Izin  => 'I',
+            self::Cuti  => 'C',
+            self::Lembur => 'OT',
+            self::Alpha => 'A',
+            self::Libur => 'Off',
+            default     => '?',
+        };
+    }
+    public function getColorClass(): string
+    {
+        return match($this) {
+            self::Hadir  => 'border-green-500',
+            self::Alpha  => 'border-red-500',
+            self::Libur  => 'border-gray-400',
+            self::Lembur => 'border-blue-400',
+            self::Sakit, self::Izin, self::Cuti => 'border-orange-400',
+            default      => 'border-gray-200',
+        };
+    }
     public function getColor(): string|array|null
     {
         return match ($this) {

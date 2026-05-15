@@ -2,10 +2,12 @@
 
 namespace App\Filament\Attendance\Pages;
 
+use App\Enums\AttendanceStatus;
 use BackedEnum;
 use Filament\Pages\Page;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
@@ -20,6 +22,13 @@ class AttendanceData extends Page implements HasTable
     public static function getNavigationGroup(): ?string
     {
         return 'Attendance';
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            \App\Filament\Actions\Attendances\AttendanceOverview::make(),
+        ];
     }
 
     public function table(Table $table): Table
@@ -62,17 +71,21 @@ class AttendanceData extends Page implements HasTable
                     ->label('Jam Pulang')
                     ->formatStateUsing(fn($state) => date('H:i', strtotime($state)))
                     ->color(fn($record) => $record->early_leave > 0 ? 'danger' : ''),
-                TextColumn::make('coming_late')
-                    ->toggleable(true, isToggledHiddenByDefault: true)
-                    ->color(fn($record) => $record->coming_late > 0 ? 'danger' : '')
+                TextInputColumn::make('coming_late')
+                    // ->color(fn($record) => $record->coming_late > 0 ? 'danger' : '')
+                    ->width('5%')
                     ->label('Terlambat'),
-                TextColumn::make('early_leave')
-                    ->toggleable(true, isToggledHiddenByDefault: true)
-                    ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
+                TextInputColumn::make('early_leave')
+                    // ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
+                    ->width('5%')
                     ->label('Pulang Cepat'),
-                TextColumn::make('overtime_hours')
+                TextInputColumn::make('overtime_hours')
+                    ->width('5%')
                     ->label('Lembur'),
+                TextColumn::make('overtime_fix_hours')
+                    ->label('Jam Lembur'),
                 TextColumn::make('working_hours')
+                    ->toggleable(true, isToggledHiddenByDefault: false)
                     ->label('Jam Kerja'),
                 TextColumn::make('status')
                     ->badge()
@@ -100,6 +113,7 @@ class AttendanceData extends Page implements HasTable
                     ->label('Koreksi')
                     ->icon('heroicon-o-pencil-square')
                     ->color('warning')
+                    ->visible(fn($record) => $record->status === AttendanceStatus::Hadir || $record->status === AttendanceStatus::Lembur)
                     ->form([
                         \Filament\Forms\Components\Select::make('shift_id')
                             ->label('Pilih Shift yang Benar')

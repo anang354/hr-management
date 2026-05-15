@@ -75,12 +75,14 @@ class AttendanceProcessor
 
                     $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($targetDate);
                     $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
+                    $overtimeFixHours = $isOffDayStart ? $metrics['overtime_hours'] * 2 : $metrics['overtime_hours'] * 1.5;
 
                     $targetAttendance->update([
                         'clock_out' => $currentTime,
                         'early_leave' => $metrics['early_leave'],
                         'overtime_hours' => (float) (floor($overtimeFinal * 2) / 2),
                         'working_hours' => (float) (floor($metrics['working_hours'] * 2) / 2),
+                        'overtime_fix_hours' => (float) (floor($overtimeFixHours * 2) / 2),
                     ]);
                 }
             }
@@ -220,6 +222,9 @@ class AttendanceProcessor
                 $shift
             );
         }
+        $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($dateIn);
+        $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
+        $overtimeFixHours = $isOffDayStart ? $metrics['overtime_hours'] * 2 : $metrics['overtime_hours'] * 1.5;
 
         // Update data final
         $attendance->update([
@@ -229,8 +234,9 @@ class AttendanceProcessor
             'status' => $status,
             'coming_late' => $late,
             'early_leave' => $metrics['early_leave'],
-            'overtime_hours' => $metrics['overtime_hours'],
+            'overtime_hours' => $overtimeFinal,
             'working_hours' => $metrics['working_hours'],
+            'overtime_fix_hours' => $overtimeFixHours,
         ]);
     }
 }
