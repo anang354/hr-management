@@ -7,7 +7,7 @@ enum Religion: string implements HasLabel
 {
     case Islam = 'Islam';
     case Christian = 'Kristen';
-    case Catholic = 'Katolik';
+    case Catholic = 'Katholik';
     case Hindu = 'Hindu';
     case Buddha = 'Buddha';
 
