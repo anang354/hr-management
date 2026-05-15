@@ -13,7 +13,7 @@
                         <tr class="bg-gray-50 border-b border-gray-200">
                             <th
                                 class="sticky left-0 z-20 bg-gray-50 px-4 py-3 font-semibold text-gray-600 border-r border-gray-200 min-w-[200px]">
-                                Employee
+                                Employee 员工
                             </th>
                             @foreach ($dates as $date)
                                 <th
@@ -75,25 +75,25 @@
             <div
                 class="p-4 bg-white border-t border-gray-200 flex flex-wrap gap-4 text-[10px] text-gray-500 uppercase tracking-wider">
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-green-500"></span> H - Hadir
+                    <span class="w-3 h-0.5 bg-green-500"></span> H - Hadir 来
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-blue-400"></span> OT - Overtime
+                    <span class="w-3 h-0.5 bg-blue-400"></span> OT - Overtime 加班
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-gray-400"></span> Off - Libur
+                    <span class="w-3 h-0.5 bg-gray-400"></span> Off - Libur 假期
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-red-500"></span> A - Alpha
+                    <span class="w-3 h-0.5 bg-red-500"></span> A - Alpha 未到场
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-orange-400"></span> C - Cuti
+                    <span class="w-3 h-0.5 bg-orange-400"></span> C - Cuti 事假
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-orange-400"></span> S - Sakit
+                    <span class="w-3 h-0.5 bg-orange-400"></span> S - Sakit 病假
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-orange-400"></span> I -Izin
+                    <span class="w-3 h-0.5 bg-orange-400"></span> I -Izin 许可假
                 </div>
             </div>
         </div>

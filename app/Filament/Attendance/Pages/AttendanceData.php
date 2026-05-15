@@ -41,6 +41,7 @@ class AttendanceData extends Page implements HasTable
                     ->searchable()
                     ->label('Karyawan'),
                 TextColumn::make('attendance_user.employee.department.name')
+                    ->toggleable()
                     ->label('Departemen'),
                 TextColumn::make('attendance_shift.name')
                     ->badge()
@@ -111,6 +112,7 @@ class AttendanceData extends Page implements HasTable
             ->actions([
                 \Filament\Actions\Action::make('koreksi')
                     ->label('Koreksi')
+                    ->iconButton()
                     ->icon('heroicon-o-pencil-square')
                     ->color('warning')
                     ->visible(fn($record) => $record->status === AttendanceStatus::Hadir || $record->status === AttendanceStatus::Lembur)

@@ -14,7 +14,7 @@
                     <tr class="bg-gray-50 border-b border-gray-200">
                         <th
                             class="sticky left-0 z-30 bg-gray-50 px-4 py-3 border-r border-gray-100 font-bold text-gray-700 min-w-[180px]">
-                            EMPLOYEE</th>
+                            EMPLOYEE 员工</th>
                         <th
                             class="sticky left-[180px] z-30 bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
                             TYPE</th>
@@ -27,7 +27,7 @@
                         @endforeach
                         <th
                             class="sticky left-[180px] z-30 bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
-                            Total OT</th>
+                            Total OT 总额</th>
                         <th
                             class="sticky left-[180px] z-30 bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
                             Total CL/EL</th>
@@ -113,31 +113,29 @@
             <div
                 class="p-4 bg-white border-t border-gray-200 flex flex-wrap gap-4 text-[10px] text-gray-500 uppercase tracking-wider">
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-blue-500"></span> IN - Jam Masuk
+                    <span class="w-3 h-0.5 bg-blue-500"></span> IN - Jam Masuk 进入
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-red-400"></span> OUT - Jam Keluar
+                    <span class="w-3 h-0.5 bg-red-400"></span> OUT - Jam Keluar 回家
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-green-400"></span> OT - Overtime / Lembur
+                    <span class="w-3 h-0.5 bg-green-400"></span> OT - Overtime / Lembur 加班
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <span class="w-3 h-0.5 bg-red-500"></span> CL/EL - Coming Late / Early Leave
+                    <span class="w-3 h-0.5 bg-red-500"></span> CL/EL - Coming Late / Early Leave 迟到/早退
                 </div>
             </div>
             <div
-                class="p-4 bg-yellow-200/50 border-t border-gray-200 flex flex-wrap gap-4 text-[10px] text-gray-500 uppercase tracking-wider">
+                class="p-4 bg-yellow-200/50 border-t border-gray-200 flex flex-col gap-4 text-[10px] text-gray-500 uppercase tracking-wider">
                 <div class="flex items-center gap-1.5">
                     <span class="w-3 h-0.5 bg-green-500"></span>
                     <p class="font-bold">OT yang ditampilkan sudah melalui perkalian (x1.5) untuk hari kerja dan (x2)
-                        untuk
-                        hari libur</p>
+                        untuk hari libur 显示的加班时间已乘以（x1.5，工作日）和（x2，节假日）。</p>
                 </div>
                 <div class="flex items-center gap-1.5">
                     <span class="w-3 h-0.5 bg-red-500"></span>
                     <p class="font-bold">CL/EL yang ditampilkan adalah total dari keterlambatan masuk dan pulang cepat
-                        (dalam
-                        jam)</p>
+                        (dalam jam) 显示的 CL/EL 是晚点到达和早退的总和（以小时为单位）。</p>
                 </div>
             </div>
         </div>

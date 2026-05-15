@@ -31,6 +31,7 @@ class AttendancePanelProvider extends PanelProvider
                 'primary' => Color::Purple,
             ])
             ->maxContentWidth('full')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Attendance/Resources'), for: 'App\Filament\Attendance\Resources')
             ->discoverPages(in: app_path('Filament/Attendance/Pages'), for: 'App\Filament\Attendance\Pages')

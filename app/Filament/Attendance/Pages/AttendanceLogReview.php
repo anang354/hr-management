@@ -37,11 +37,13 @@ class AttendanceLogReview extends Page implements HasForms, HasTable
             DatePicker::make('date_from')
                     ->label(__('attendances.filters.from'))
                     ->default(now()->startOfMonth())
+                    ->native(false)
                     ->live()
                     ->afterStateUpdated(fn() => $this->resetTable()),
             DatePicker::make('date_to')
                 ->label(__('attendances.filters.until'))
                 ->default(now()->endOfMonth())
+                ->native(false)
                 ->live()
                 ->afterStateUpdated(fn() => $this->resetTable()),
             Select::make('attendance_user_id')

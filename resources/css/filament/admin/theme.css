@@ -3,3 +3,5 @@
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 @source '../../../../resources/views/filament/attendance/**/*';
+@source '../../../../resources/views/filament/attendance/pages/**/*';
+@source '../../../../resources/views/filament/pages/**/*';

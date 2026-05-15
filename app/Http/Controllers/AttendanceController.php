@@ -52,7 +52,7 @@ class AttendanceController extends Controller
 
             $employeesData = $employeesQuery->get()->map(function ($attendanceUser) use ($fromDate, $toDate) {
                 return [
-                    'id' => $attendanceUser->employee?->employee_code ?? '-',
+                    'id' => $attendanceUser->employee?->employee_number ?? '-',
                     'name' => $attendanceUser->display_name,
                     // Pastikan fungsi ini mengembalikan array dengan format: ['2026-05-01' => 'P', '2026-05-02' => 'W/P', ...]
                     'attendance' => $this->getAttendanceStatus($attendanceUser->id, $fromDate, $toDate),
