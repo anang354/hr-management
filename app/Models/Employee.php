@@ -56,15 +56,16 @@ class Employee extends Model
     ];
 
     const BANK_NAME = [
-        'ocbc' => 'OCBC',
-        'uob' => 'UOB',
+        'OCBC' => 'OCBC',
+        'UOB' => 'UOB',
     ];
     const PTKP_STATUS = [
-        'tk0' => 'TK/0',
-        'k0' => 'K/0',
-        'k1' => 'K/1',
-        'k2' => 'K/2',
-        'k3' => 'K/3',
+        'TK' => 'TK',
+        'TK/0' => 'TK/0',
+        'K/0' => 'K/0',
+        'K/1' => 'K/1',
+        'K/2' => 'K/2',
+        'K/3' => 'K/3',
     ];
 
 
