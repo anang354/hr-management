@@ -17,37 +17,37 @@ class AttendanceLogsTable
             ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('attendanceUser.biometric_id')
-                    ->label('Biometric ID'),
+                    ->label(__('attendances.fields.biometric_id')),
                 TextColumn::make('attendanceUser.display_name')
-                    ->label('Display Name')
+                    ->label(__('attendances.fields.display_name'))
                     ->searchable(),
                 TextColumn::make('attendance_date') // Nama unik untuk kolom tanggal
-                    ->label('Tanggal')
+                    ->label(__('attendances.fields.date'))
                     ->state(fn($record) => $record->attendance_time)
                     ->date('Y-m-d')
                     ->sortable(),
 
                 TextColumn::make('attendance_hour')
-                    ->label('Jam')
+                    ->label(__('attendances.fields.time'))
                     ->state(fn($record) => $record->attendance_time)
                     ->time('H:i')
                     ->sortable(),
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('attendances.fields.type'))
                     ->badge(),
                 TextColumn::make('verify_method')
-                    ->label('Login by')
+                    ->label(__('attendances.fields.verify_method'))
                     ->badge()
             ])
             ->filters([
                 SelectFilter::make('type')
-                    ->label('Type')
+                    ->label(__('attendances.fields.type'))
                     ->options([
                         '0' => 'Masuk',
                         '1' => 'Keluar',
                     ]),
                 SelectFilter::make('verify_method')
-                    ->label('Login by')
+                    ->label(__('attendances.fields.verify_method'))
                     ->options([
                         '1' => 'Finger',
                         '2' => 'Lock',

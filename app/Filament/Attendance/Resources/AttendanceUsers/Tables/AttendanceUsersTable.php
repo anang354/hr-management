@@ -16,17 +16,17 @@ class AttendanceUsersTable
         return $table
             ->columns([
                 TextColumn::make('biometric_id')
-                    ->label('Biometric ID'),
+                    ->label(__('attendances.fields.biometric_id')),
                 TextColumn::make('employee.name')
-                    ->label('Employee Name'),
+                    ->label(__('attendances.fields.employee')),
                 TextColumn::make('display_name')
-                    ->label('Display Name')
+                    ->label(__('attendances.fields.display_name'))
                     ->searchable(),
                 TextColumn::make('employee.department.name')
-                    ->label('Departemen'),
+                    ->label(__('attendances.fields.department')),
                 TextColumn::make('biometric_backups_count')
                 ->counts('biometricBackups') // Nama fungsi relasi di model
-                ->label('Jumlah Jari')
+                ->label(__('attendances.fields.registered_finger'))
                 ->badge() // Opsional: agar tampil seperti lencana
                 ->color(fn (int $state): string => match (true) {
                     $state === 0 => 'danger',

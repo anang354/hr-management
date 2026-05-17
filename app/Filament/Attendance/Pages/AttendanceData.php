@@ -21,7 +21,12 @@ class AttendanceData extends Page implements HasTable
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Attendance';
+        return __('attendances.navigation_group');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('attendances.attendance_data');
     }
 
     protected function getHeaderActions(): array
@@ -36,15 +41,17 @@ class AttendanceData extends Page implements HasTable
         return $table->query(\App\Models\AttendanceData::query()->where('date', '>=', \Carbon\Carbon::now()->subMonths(2)))
             ->columns([
                 TextColumn::make('date')->label('Tanggal')
+                ->label(__('attendances.fields.date'))
                 ->date('d M Y'),
                 TextColumn::make('attendance_user.display_name')
                     ->searchable()
-                    ->label('Karyawan'),
+                    ->label(__('attendances.fields.employee')),
                 TextColumn::make('attendance_user.employee.department.name')
                     ->toggleable()
-                    ->label('Departemen'),
+                    ->label(__('attendances.fields.department')),
                 TextColumn::make('attendance_shift.name')
                     ->badge()
+                    ->label(__('attendances.fields.shift'))
                     ->color(function ($record) {
                         if($record->attendance_shift->name === 'Day') {
                             return 'warning';
@@ -62,39 +69,37 @@ class AttendanceData extends Page implements HasTable
                         } else {
                             return 'heroicon-o-sun';
                         }
-                    })
-                    ->label('Shift'),
+                    }),
                 TextColumn::make('clock_in')
-                    ->label('Jam Masuk')
+                    ->label(__('attendances.fields.checkin'))
                     ->formatStateUsing(fn($state) => date('H:i', strtotime($state)))
                     ->color(fn($record) => $record->coming_late > 0 ? 'danger' : ''),
                 TextColumn::make('clock_out')
-                    ->label('Jam Pulang')
+                    ->label(__('attendances.fields.checkout'))
                     ->formatStateUsing(fn($state) => date('H:i', strtotime($state)))
                     ->color(fn($record) => $record->early_leave > 0 ? 'danger' : ''),
                 TextInputColumn::make('coming_late')
                     // ->color(fn($record) => $record->coming_late > 0 ? 'danger' : '')
                     ->width('5%')
-                    ->label('Terlambat'),
-                TextInputColumn::make('early_leave')
-                    // ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
-                    ->width('5%')
-                    ->label('Pulang Cepat'),
+                    ->label(__('attendances.fields.late')),
+                TextColumn::make('early_leave')
+                    ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
+                    ->label(__('attendances.fields.early_leave')),
                 TextInputColumn::make('overtime_hours')
                     ->width('5%')
-                    ->label('Lembur'),
+                    ->label(__('attendances.fields.overtime')),
                 TextColumn::make('overtime_fix_hours')
-                    ->label('Jam Lembur'),
+                    ->label(__('attendances.fields.overtime_fix_hours')),
                 TextColumn::make('working_hours')
                     ->toggleable(true, isToggledHiddenByDefault: false)
-                    ->label('Jam Kerja'),
+                    ->label(__('attendances.fields.working_hours')),
                 TextColumn::make('status')
                     ->badge()
-                    ->label('Status'),
+                    ->label(__('attendances.fields.status')),
             ])
             ->filters([
                 SelectFilter::make('attendance_shift_id')
-                    ->label('Shift')
+                    ->label(__('attendances.fields.shift'))
                     ->relationship('attendance_shift', 'name'),
                 SelectFilter::make('status')
                     ->label('Status')

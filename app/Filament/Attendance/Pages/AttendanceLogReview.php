@@ -25,7 +25,12 @@ class AttendanceLogReview extends Page implements HasForms, HasTable
     protected static string|BackedEnum|null $navigationIcon = Heroicon::DocumentMagnifyingGlass;
     public static function getNavigationGroup(): ?string
     {
-        return 'Attendance';
+        return __('attendances.navigation_group');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('attendances.attendance_log_review');
     }
     public ?int $attendance_user_id = null;
     public ?string $date_from = null;

@@ -133,7 +133,7 @@
                                 </td>
 
                                 <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
-                                    {{ \Illuminate\Support\Str::limit($item->employee->name, 10, '...') }}
+                                    {{ \Illuminate\Support\Str::limit($item->employee?->name, 10, '...') }}
                                 </td>
 
                                 <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">

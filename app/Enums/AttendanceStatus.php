@@ -17,13 +17,13 @@ enum AttendanceStatus: string implements HasLabel, HasColor
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::Hadir => 'Hadir',
-            self::Sakit => 'Sakit',
-            self::Izin => 'Izin',
-            self::Cuti => 'Cuti',
-            self::Lembur => 'Lembur',
-            self::Alpha => 'Alpha',
-            self::Libur => 'Libur',
+            self::Hadir => __('attendances.status.Hadir'),
+            self::Sakit => __('attendances.status.Sakit'),
+            self::Izin => __('attendances.status.Izin'),
+            self::Cuti => __('attendances.status.Cuti'),
+            self::Lembur => __('attendances.status.Lembur'),
+            self::Alpha => __('attendances.status.Alpha'),
+            self::Libur => __('attendances.status.Libur'),
         };
     }
     // Method untuk mendapatkan singkatan

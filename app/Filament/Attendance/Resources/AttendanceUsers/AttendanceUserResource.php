@@ -22,7 +22,12 @@ class AttendanceUserResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return 'Attendance';
+        return __('attendances.navigation_group');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('attendances.attendance_user');
     }
 
     public static function form(Schema $schema): Schema
