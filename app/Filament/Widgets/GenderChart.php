@@ -11,6 +11,11 @@ class GenderChart extends ChartWidget
         return __('charts.genders.title');
     }
     protected bool $isCollapsible = true;
+    protected static ?int $sort = 4;
+    protected int | string | array $columnSpan = [
+        'md' => 2,
+        'xl' => 2,
+    ];
 
     protected function getData(): array
     {

@@ -10,7 +10,16 @@ use Filament\Widgets\ChartWidget;
 
 class DailyAttendanceChartWidget extends ChartWidget
 {
-    protected ?string $heading = 'Daily Attendance Chart Widget';
+    public function getHeading(): string
+    {
+        return __('attendances.chart_title');
+    }
+    protected static ?int $sort = 1;
+    protected bool $isCollapsible = true;
+    protected int | string | array $columnSpan = [
+        'md' => 4,
+        'xl' => 4,
+    ];
 
     protected function getData(): array
     {
@@ -114,7 +123,7 @@ class DailyAttendanceChartWidget extends ChartWidget
                 [
                     'label' => 'Libur (%)',
                     'data' => $dataLibur,
-                    'borderColor' => '#3B82F6', // Biru
+                    'borderColor' => '#8b8b8bff', // Biru
                     'backgroundColor' => 'transparent',
                     'tension' => 0.4,
                 ],

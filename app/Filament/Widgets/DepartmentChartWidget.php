@@ -11,6 +11,11 @@ class DepartmentChartWidget extends ChartWidget
         return __('department.chart_title');
     }
     protected bool $isCollapsible = true;
+    protected static ?int $sort = 2;
+    protected int | string | array $columnSpan = [
+        'md' => 4,
+        'xl' => 4,
+    ];
 
     protected function getData(): array
     {
@@ -44,7 +49,7 @@ class DepartmentChartWidget extends ChartWidget
 
             'plugins' => [
                 'legend' => [
-                    'display' => false, // Sembunyikan label kotak atas jika tidak diperlukan
+                    'display' => true, // Sembunyikan label kotak atas jika tidak diperlukan
                 ],
             ],
             'scales' => [

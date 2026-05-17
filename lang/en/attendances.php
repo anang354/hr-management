@@ -14,6 +14,8 @@ return [
     'breakout' => 'Breakout',
     'breakin' => 'Breakin',
     'status' => 'Status',
+    'total_hari' => 'Total Hari',
+    'total_jam' => 'Total Jam',
   ],
   'actions' => [
     'viewPhoto' => 'View Photo',
@@ -31,4 +33,6 @@ return [
     'day' => 'Day',
     'night' => 'Night',
   ],
+  'chart_title' => 'Daily Attendance Chart',
+  'top_late_employees' => 'Top Late Employees (this month)',
 ];

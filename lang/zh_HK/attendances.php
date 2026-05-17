@@ -14,6 +14,8 @@ return [
     'breakout' => '中午外出',
     'breakin' => '中午回来',
     'status' => '状态',
+    'total_hari' => '遲到天數',
+    'total_jam' => '遲到小時',
   ],
   'actions' => [
     'viewPhoto' => '查看照片',
@@ -31,4 +33,6 @@ return [
     'day' => '白班',
     'night' => '夜班',
   ],
+  'chart_title' => '每日出勤表',
+  'top_late_employees' => '遲到員工',
 ];
