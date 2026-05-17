@@ -18,6 +18,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Filament\Widgets;
 
 class AttendancePanelProvider extends PanelProvider
 {
@@ -46,10 +47,12 @@ class AttendancePanelProvider extends PanelProvider
             ->widgets([
                 // AccountWidget::class,
                 // FilamentInfoWidget::class,
-                \App\Filament\Widgets\GenderChart::class,
-                \App\Filament\Widgets\ReligionChart::class,
-            ])
-            ->middleware([
+                Widgets\DailyAttendanceChartWidget::class,
+                Widgets\DepartmentChartWidget::class,
+                Widgets\GenderChart::class,
+                Widgets\ReligionChart::class,
+                ])
+                ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,

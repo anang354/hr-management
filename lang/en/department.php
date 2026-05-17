@@ -9,4 +9,5 @@ return [
         'code' => 'code',
         'employee_active' => 'employee active'
     ],
+    'chart_title' => 'Employees of Department',
 ];

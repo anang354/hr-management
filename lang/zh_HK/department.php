@@ -9,4 +9,5 @@ return [
         'code' => '部门代码',
         'employee_active' => '现役员工总数',
     ],
+    'chart_title' => '各部门员工总数',
 ];
