@@ -12,15 +12,12 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
+use Livewire\Component;
 
 class ContractsRelationManager extends RelationManager
 {
     protected static string $relationship = 'contracts';
-
-    public function canAccess(): bool
-    {
-        return auth()->user()->can('viewAny', \App\Models\Contract::class);
-    }
 
 
     public function infolist(Schema $schema): Schema
@@ -58,8 +55,8 @@ class ContractsRelationManager extends RelationManager
             ->recordTitleAttribute('contract_number')
             ->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('contract_number')
-                    ->searchable(),
+                TextColumn::make('employee.name'),
+                TextColumn::make('contract_number'),
                 TextColumn::make('total_gaji')
                     ->numeric(),
                 TextColumn::make('start_date')

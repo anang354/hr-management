@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
             PanelsRenderHook::SIDEBAR_NAV_START,
             function (): string {
                 // Proteksi null-safe (?->) jika sewaktu-waktu diakses saat user belum login
-                if (auth()->user()->role === 'admin') {
+                if (auth()->user()->role === 'admin' || auth()->user()->role === 'hr_all') {
                     return Blade::render('<livewire:action-shortcuts />');
                 }
 

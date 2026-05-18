@@ -18,6 +18,10 @@ class AttendanceData extends Page implements HasTable
     use InteractsWithTable;
     protected string $view = 'filament.attendance.pages.attendance-data';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedDocumentText;
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin() || auth()->user()->isHrAll() || auth()->user()->isHr();
+    }
 
     public static function getNavigationGroup(): ?string
     {

@@ -7,6 +7,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
@@ -18,6 +19,7 @@ class EmployeesTable
     {
         return $table
             ->defaultSort('created_at', 'desc')
+            ->paginated([25,50,100])
             ->columns([
                 TextColumn::make('employee_number')
                     ->label(__('employee.fields.employee_number'))
@@ -96,6 +98,7 @@ class EmployeesTable
                     ->options(\App\Enums\Religion::class),
             ])
             ->recordActions([
+                ViewAction::make(),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

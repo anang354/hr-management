@@ -18,7 +18,7 @@ class OvertimeRequestForm
             ->components([
                 Section::make('Informasi Lembur')
                     ->schema([
-                        Components\DatePicker::make('overtime_date')->required(),
+                        Components\DatePicker::make('overtime_date')->required()->native(false),
                         Components\TextInput::make('content')->required()->maxLength(255),
                         Components\Hidden::make('user_id')->default(auth()->id()),
                     ])->columns(2),

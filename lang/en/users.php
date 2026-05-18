@@ -11,4 +11,12 @@ return [
         'password' => 'password',
         'password_confirmation' => 'password_confirmation',
     ],
+    'user_role' => [
+        'leader'     => 'Leader',
+        'hr_all'     => 'HR All',
+        'manager'    => 'Manager',
+        'admin'      => 'Admin',
+        'hr'         => 'HR',
+        'user'       => 'User',
+    ],
 ];

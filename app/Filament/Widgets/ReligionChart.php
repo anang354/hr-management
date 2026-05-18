@@ -6,6 +6,10 @@ use Filament\Widgets\ChartWidget;
 
 class ReligionChart extends ChartWidget
 {
+    public static function canView(): bool
+    {
+        return auth()->user()?->role === 'admin' || auth()->user()?->role === 'hr' || auth()->user()?->role === 'hr_all';
+    }
     public function getHeading(): string
     {
         return __('charts.religions.title');

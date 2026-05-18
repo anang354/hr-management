@@ -31,6 +31,11 @@ class AttendanceShift extends Page implements HasForms, HasTable
         return 'Shift';
     }
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin() || auth()->user()->isHr();
+    }
+
     protected function getShiftFormSchema(): array
     {
         return [

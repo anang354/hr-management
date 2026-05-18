@@ -8,9 +8,14 @@ use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class TopLateEmployeesWidget extends TableWidget
 {
+    public static function canView(): bool
+    {
+        return auth()->user()?->role !== 'leader';
+    }
 
     protected bool $isCollapsible = true;
     protected static ?int $sort = 3;
@@ -22,23 +27,33 @@ class TopLateEmployeesWidget extends TableWidget
     {
         $startOfMonth = now()->startOfMonth()->format('Y-m-d');
         $today = now()->format('Y-m-d');
+        $user = Auth::user();
+        $managerDepartment = $user->department_id;
         return $table
             ->query(
                 // 1. Query utama dari tabel attendance_users
                 AttendanceUser::query()
                     ->where('is_active', 1)
 
+                    // KUNCI UTAMA: Jika manager, kunci query hanya untuk karyawan di departemennya saja
+                    ->when($user->role === 'manager', function ($query) use ($managerDepartment) {
+                        return $query->whereHas('employee', function ($q) use ($managerDepartment) {
+                            $q->where('department_id', $managerDepartment);
+                        });
+                    })
+
                     // 2. Hitung TOTAL JAM terlambat dari kolom coming_late
                     ->withSum(['attendanceData as total_late_hours' => function (Builder $query) use ($startOfMonth, $today) {
                         $query->whereBetween('date', [$startOfMonth, $today])
-                              ->where('coming_late', '>', 0);
+                            ->where('coming_late', '>', 0);
                     }], 'coming_late')
 
                     // 3. Hitung TOTAL HARI terlambat (berapa kali barisnya memiliki coming_late > 0)
                     ->withCount(['attendanceData as total_late_days' => function (Builder $query) use ($startOfMonth, $today) {
                         $query->whereBetween('date', [$startOfMonth, $today])
-                              ->where('coming_late', '>', 0);
+                            ->where('coming_late', '>', 0);
                     }])
+
                     // Filter hanya menampilkan yang pernah terlambat
                     ->having('total_late_days', '>', 0)
                     // Urutkan berdasarkan akumulasi hari terlambat terbanyak

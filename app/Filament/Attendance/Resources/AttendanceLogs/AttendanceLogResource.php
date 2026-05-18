@@ -20,6 +20,10 @@ class AttendanceLogResource extends Resource
     protected static ?string $model = AttendanceLog::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBeaker;
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin() || auth()->user()->isHrAll() || auth()->user()->isHr();
+    }
 
     public static function getNavigationGroup(): ?string
     {

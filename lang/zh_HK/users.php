@@ -11,4 +11,12 @@ return [
         'password' => '密码',
         'password_confirmation' => '确认密码',
     ],
+    'user_role' => [
+        'leader'     => '组长',
+        'hr_all'     => 'HR 全员',
+        'manager'    => '经理',
+        'admin'      => '管理员',
+        'hr'         => 'HR',
+        'user'       => '普通职员',
+    ],
 ];

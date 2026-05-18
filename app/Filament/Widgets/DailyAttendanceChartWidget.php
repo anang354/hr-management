@@ -7,9 +7,15 @@ use App\Models\AttendanceData;
 use App\Models\AttendanceUser;
 use Carbon\CarbonPeriod;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Facades\Auth;
 
 class DailyAttendanceChartWidget extends ChartWidget
 {
+    public static function canView(): bool
+    {
+        return auth()->user()?->role !== 'leader';
+    }
+
     public function getHeading(): string
     {
         return __('attendances.chart_title');
@@ -23,27 +29,38 @@ class DailyAttendanceChartWidget extends ChartWidget
 
     protected function getData(): array
     {
-        // 1. Hitung total karyawan aktif sebagai pembagi (Denominator)
-        $totalEmployees = AttendanceUser::where('is_active', true)->count();
-        if ($totalEmployees === 0) $totalEmployees = 1; // Proteksi division by zero
+        $user = Auth::user();
+        // Ambil nama departemen sang manager (Asumsi relasi user ke employee ada)
+        $managerDepartment = $user->department_id;
+        $totalEmployeesQuery = AttendanceUser::where('is_active', 1);
+        if ($user->role === 'manager') {
+            $totalEmployeesQuery->whereHas('employee', fn($q) => $q->where('department_id', $managerDepartment));
+        }
+        $totalEmployees = $totalEmployeesQuery->count();
+        if ($totalEmployees === 0) $totalEmployees = 1;
 
-        // 2. Tentukan rentang tanggal dari awal bulan sampai HARI INI
-        // Kita batasi sampai hari ini agar grafik tidak drop ke 0% pada tanggal mendatang
         $startOfMonth = now()->startOfMonth();
         $today = now();
-        $period = CarbonPeriod::create($startOfMonth, $today);
+        $period = \Carbon\CarbonPeriod::create($startOfMonth, $today);
+
+        // 2. Tarik data absen (Gunakan kondisional whereHas untuk Manager)
+        $attendanceQuery = AttendanceData::query()
+            ->whereBetween('date', [$startOfMonth->format('Y-m-d'), $today->format('Y-m-d')]);
+
+        if ($user->role === 'manager') {
+            $attendanceQuery->whereHas('attendance_user.employee', fn($q) =>
+                $q->where('department_id', $managerDepartment)
+            );
+        }
+
+        $attendanceRecords = $attendanceQuery->get()->groupBy('date');
+        // dd($attendanceRecords);
 
         // Buat array label untuk sumbu X (Tanggal 01, 02, dst)
         $labels = [];
         foreach ($period as $date) {
             $labels[] = $date->format('d M');
         }
-
-        // 3. Tarik semua data attendance bulan berjalan
-        $attendanceRecords = AttendanceData::query()
-            ->whereBetween('date', [$startOfMonth->format('Y-m-d'), $today->format('Y-m-d')])
-            ->get()
-            ->groupBy('date');
 
         // 4. Siapkan wadah penampung data untuk setiap kategori
         $dataHadir = [];

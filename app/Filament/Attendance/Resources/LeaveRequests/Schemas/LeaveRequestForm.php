@@ -46,6 +46,7 @@ class LeaveRequestForm
                     }),
                 Select::make('leave_type')
                     ->label(__('leave_request.fields.leave_type'))
+                    ->native(false)
                     ->options(\App\Enums\LeaveType::class)
                     ->required(),
                 Select::make('leave_session')
@@ -67,11 +68,13 @@ class LeaveRequestForm
                 DatePicker::make('start_date')
                     ->label(__('leave_request.fields.start_date'))
                     ->live()
+                    ->native(false)
                     ->required(),
                 DatePicker::make('end_date')
                     ->label(__('leave_request.fields.end_date'))
                     ->hidden(fn($get) => $get('leave_session') !== 'fullday')
                     ->live()
+                    ->native(false)
                     ->required()
                     ->afterStateUpdated(function ($state, $get, $set) {
                         $start = \Carbon\Carbon::parse($get('start_date'));

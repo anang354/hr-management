@@ -21,7 +21,10 @@ class DepartmentResource extends Resource
     use Translatable;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSquare3Stack3d;
-
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin()|| auth()->user()->isHr();
+    }
     public static function getNavigationLabel(): string
     {
         return __('department.navigation_label');

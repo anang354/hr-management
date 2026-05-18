@@ -19,6 +19,10 @@ class AttendanceOvertime extends Page implements HasForms
     use InteractsWithForms;
     protected string $view = 'filament.attendance.pages.attendance-overtime';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ArrowsRightLeft;
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin() || auth()->user()->isHrAll() || auth()->user()->isHr();
+    }
     public static function getNavigationGroup(): ?string
     {
         return __('attendances.navigation_group');

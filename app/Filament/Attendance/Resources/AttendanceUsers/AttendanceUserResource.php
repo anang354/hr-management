@@ -19,6 +19,10 @@ class AttendanceUserResource extends Resource
     protected static ?string $model = AttendanceUser::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin() || auth()->user()->isHrAll() || auth()->user()->isHr();
+    }
 
     public static function getNavigationGroup(): ?string
     {

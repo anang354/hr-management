@@ -23,6 +23,10 @@ class AttendanceLogReview extends Page implements HasForms, HasTable
     use InteractsWithForms, InteractsWithTable;
     protected string $view = 'filament.attendance.pages.attendance-log-review';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::DocumentMagnifyingGlass;
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin() || auth()->user()->isHrAll() || auth()->user()->isHr();
+    }
     public static function getNavigationGroup(): ?string
     {
         return __('attendances.navigation_group');

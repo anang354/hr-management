@@ -27,6 +27,7 @@ class UserForm
                 Components\Select::make('role')
                     ->label(__('users.fields.role'))
                     ->options(\App\Enums\UserRole::class)
+                    ->native(false)
                     ->required(),
                 Components\TextInput::make('password')
                     ->label(__('users.fields.password'))

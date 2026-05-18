@@ -24,6 +24,10 @@ class Holiday extends Page implements HasTable, HasForms
     use InteractsWithTable, InteractsWithForms;
     protected string $view = 'filament.attendance.pages.holiday';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCalendarDays;
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin() || auth()->user()->isHr();
+    }
 
     protected function getHolidayFormSchema(): array
     {

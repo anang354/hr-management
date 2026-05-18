@@ -19,6 +19,12 @@ class EmployeePosResource extends Resource
 {
     use Translatable;
     protected static ?string $model = EmployeePos::class;
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()->isAdmin()|| auth()->user()->isHr();
+    }
+
     public static function getModelLabel(): string
     {
         return __('employee_pos.label');

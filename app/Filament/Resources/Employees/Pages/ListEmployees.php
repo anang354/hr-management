@@ -27,6 +27,9 @@ class ListEmployees extends ListRecords
             ActionGroup::make([
                 ImportAction::make()
                     ->label(__('employee.actions.import'))
+                    ->visible(function () {
+                        return auth()->user()->isAdmin() || auth()->user()->isHr();
+                    })
                     ->color('success')
                     ->icon('heroicon-o-arrow-up-tray')
                     ->importer(EmployeeImporter::class),
@@ -37,6 +40,9 @@ class ListEmployees extends ListRecords
                     ->exporter(EmployeeExporter::class),
                 Action::make('exit')
                     ->label(__('employee.actions.lay_off'))
+                    ->visible(function () {
+                        return auth()->user()->isAdmin() || auth()->user()->isHr();
+                    })
                     ->color('danger')
                     ->icon('heroicon-o-user-minus')
                     ->url(ExitEmployees::getUrl()),
