@@ -12,6 +12,10 @@
                     <thead>
                         <tr class="bg-gray-50 border-b border-gray-200">
                             <th
+                                class="sticky left-0 z-20 bg-gray-50 px-4 py-3 font-semibold text-gray-600 border-r border-gray-200">
+                                No
+                            </th>
+                            <th
                                 class="sticky left-0 z-20 bg-gray-50 px-4 py-3 font-semibold text-gray-600 border-r border-gray-200 min-w-[200px]">
                                 Employee 员工
                             </th>
@@ -27,6 +31,9 @@
                     <tbody class="divide-y divide-gray-100">
                         @foreach ($employeesData as $emp)
                             <tr class="hover:bg-blue-50/30">
+                                <td class="sticky left-0 z-10 bg-white px-4 py-3 border-r border-gray-200">
+                                    {{$loop->iteration}}
+                                </td>
                                 <td class="sticky left-0 z-10 bg-white px-4 py-3 border-r border-gray-200">
                                     <span class="text-gray-400 font-mono mr-2">{{ $emp['id'] }}</span>
                                     <span class="text-gray-700 font-medium">{{ $emp['name'] }}</span>

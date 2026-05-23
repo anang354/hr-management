@@ -13,6 +13,9 @@
                 <thead>
                     <tr class="bg-gray-50 border-b border-gray-200">
                         <th
+                            class="sticky left-0 z-30 bg-gray-50 px-4 py-3 border-r border-gray-100 font-bold text-gray-700">
+                            NO</th>
+                        <th
                             class="sticky left-0 z-30 bg-gray-50 px-4 py-3 border-r border-gray-100 font-bold text-gray-700 min-w-[180px]">
                             EMPLOYEE 员工</th>
                         <th
@@ -37,6 +40,10 @@
                     @foreach ($employees as $emp)
                         {{-- Row 1: IN --}}
                         <tr class="hover:bg-gray-50/50">
+                            <td rowspan="4"
+                                class="sticky left-0 z-20 bg-white px-4 py-3 border-r border-gray-100 border-b font-medium text-gray-900 align-middle shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]">
+                                {{$loop->iteration}}
+                            </td>
                             <td rowspan="4"
                                 class="sticky left-0 z-20 bg-white px-4 py-3 border-r border-gray-100 border-b font-medium text-gray-900 align-middle shadow-[2px_0_5px_-2px_rgba(0,0,0,0.05)]">
                                 <div class="text-[10px] text-gray-400 font-mono">{{ $emp['emp_id'] }}</div>
