@@ -7,6 +7,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class AttendanceUsersTable
@@ -18,6 +19,7 @@ class AttendanceUsersTable
                 TextColumn::make('biometric_id')
                     ->label(__('attendances.fields.biometric_id')),
                 TextColumn::make('employee.name')
+                    ->toggleable()
                     ->label(__('attendances.fields.employee')),
                 TextColumn::make('display_name')
                     ->label(__('attendances.fields.display_name'))
@@ -27,6 +29,7 @@ class AttendanceUsersTable
                 TextColumn::make('biometric_backups_count')
                 ->counts('biometricBackups') // Nama fungsi relasi di model
                 ->label(__('attendances.fields.registered_finger'))
+                ->sortable()
                 ->badge() // Opsional: agar tampil seperti lencana
                 ->color(fn (int $state): string => match (true) {
                     $state === 0 => 'danger',
@@ -36,7 +39,8 @@ class AttendanceUsersTable
                 ->icon('heroicon-o-finger-print'),
             ])
             ->filters([
-                //
+                SelectFilter::make('department')
+                    ->relationship('employee.department', 'name'),
             ])
             ->recordActions([
                 EditAction::make(),
