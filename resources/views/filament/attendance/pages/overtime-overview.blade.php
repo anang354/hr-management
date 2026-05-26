@@ -55,7 +55,7 @@
                             @foreach ($dates as $dateKey => $val)
                                 <td
                                     class="px-2 py-1 text-center border-r border-gray-100 border-b {{ $val['is_weekend'] ? 'bg-gray-50/30' : '' }}">
-                                    @if (isset($emp['data'][$dateKey]->clock_in))
+                                    @if (isset($emp['data'][$dateKey]) && !is_null($emp['data'][$dateKey]->clock_in))
                                         {{ \Carbon\Carbon::parse($emp['data'][$dateKey]->clock_in)->format('H:i') }}
                                     @else
                                         -
@@ -72,7 +72,7 @@
                             @foreach ($dates as $dateKey => $val)
                                 <td
                                     class="px-2 py-1 text-center border-r border-gray-100 border-b {{ $val['is_weekend'] ? 'bg-gray-50/30' : '' }}">
-                                    @if (isset($emp['data'][$dateKey]->clock_in))
+                                    @if (isset($emp['data'][$dateKey]) && !is_null($emp['data'][$dateKey]->clock_out))
                                         {{ \Carbon\Carbon::parse($emp['data'][$dateKey]->clock_out)->format('H:i') }}
                                     @else
                                         -
