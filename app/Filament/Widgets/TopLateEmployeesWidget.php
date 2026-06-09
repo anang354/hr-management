@@ -66,7 +66,7 @@ class TopLateEmployeesWidget extends TableWidget
                     ->label(__('attendances.fields.employee'))
                     ->weight('bold'),
                 // Kolom Departemen (Mengambil via relasi ke model Employee Anda)
-                TextColumn::make('employee.department') // Sesuaikan nama relasi & kolom departemen Anda
+                TextColumn::make('employee.department.name') // Sesuaikan nama relasi & kolom departemen Anda
                     ->label(__('attendances.fields.department'))
                     ->color('gray'),
                 // Kolom Total Hari Terlambat

@@ -2,10 +2,13 @@
 
 namespace App\Filament\Attendance\Resources\AttendanceUsers\Tables;
 
+use App\Services\BiometricSyncService;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -17,6 +20,7 @@ class AttendanceUsersTable
         return $table
             ->columns([
                 TextColumn::make('biometric_id')
+                    ->searchable()
                     ->label(__('attendances.fields.biometric_id')),
                 TextColumn::make('employee.name')
                     ->toggleable()
@@ -45,6 +49,45 @@ class AttendanceUsersTable
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),
+                 // Tombol Sync Biometric
+                Action::make('syncBiometric')
+                    ->label('Sync Fingerprint')
+                    ->icon('heroicon-o-finger-print')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading('Sync Fingerprint to Devices')
+                    ->modalDescription(function ($record) {
+                        $fingerprintCount = $record->biometricBackups()->count();
+                        if ($fingerprintCount === 0) {
+                            return "User {$record->biometric_id} ({$record->display_name}) has no fingerprint templates. Please register fingerprint on device first.";
+                        }
+                        return "This will sync {$fingerprintCount} fingerprint(s) for user {$record->biometric_id} ({$record->display_name}) to all active biometric devices. Continue?";
+                    })
+                    ->modalSubmitActionLabel('Sync Now')
+                    ->visible(function ($record) {
+                        return $record->biometricBackups()->count() > 0;
+                    })
+                    ->action(function ($record, BiometricSyncService $syncService) {
+                        $result = $syncService->syncUser($record->biometric_id, ['all']);
+
+                        if ($result['success']) {
+                            $data = $result['data'];
+                            $uploaded = $data['summary']['templatesUploaded'] ?? 0;
+                            $skipped = $data['summary']['templatesSkipped'] ?? 0;
+
+                            Notification::make()
+                                ->title('Sync Successful')
+                                ->body("User {$record->biometric_id} synced: {$uploaded} uploaded, {$skipped} skipped")
+                                ->success()
+                                ->send();
+                        } else {
+                            Notification::make()
+                                ->title('Sync Failed')
+                                ->body($result['message'])
+                                ->danger()
+                                ->send();
+                        }
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

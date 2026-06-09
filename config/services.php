@@ -38,4 +38,8 @@ return [
         'ip' => env('ZKTECO_MACHINE_IP', '[IP_ADDRESS]'),
         'port' => env('ZKTECO_MACHINE_PORT', 4370),
     ],
+    'node_sync' => [
+        'url' => env('NODE_SYNC_URL', 'http://localhost:3001'),
+        'timeout' => 120,
+    ],
 ];

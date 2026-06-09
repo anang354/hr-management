@@ -7,7 +7,28 @@ use App\Livewire\AttendancePage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $ip = '132.168.65.251';
+    $port = 4370;
+
+    $zk = new \App\Libs\ZKLibrary($ip, $port);
+
+    $uid = 28; // Sesuai dengan isi paket biner (PIN=2)
+    $fingerIndex = 4; // WAJIB 9, karena isi biner aslinya adalah FID=9, bukan 8!
+
+    try {
+            $zk->connect();
+            $zk->disableDevice();
+            $template =$zk->getSerialNumber();
+            $zk->enableDevice();
+            $zk->disconnect();
+            if($template === null) {
+                dd('Gagal terhubung ke mesin');
+            } else {
+                dd('Serial Number: ' . $template);
+            }
+    } catch (\Exception $e) {
+        echo "Terjadi error: " . $e->getMessage();
+    }
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('admin/contract-settings/preview', [ContractSettingsController::class, 'index'])->name('contract-settings-preview');

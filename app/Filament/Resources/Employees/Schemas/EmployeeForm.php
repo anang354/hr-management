@@ -100,7 +100,7 @@ class EmployeeForm
                             ->required(),
                         TextInput::make('employee_number')
                             ->label(__('employee.fields.employee_number'))
-                            ->readOnly()
+                            ->readOnlyOn('create')
                             ->required()
                             ->reactive(),
                         DatePicker::make('join_date')

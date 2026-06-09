@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Employees;
 
+use App\Filament\Resources\Employees\Pages\ChangeCardNumber;
 use App\Filament\Resources\Employees\Pages\CreateEmployee;
 use App\Filament\Resources\Employees\Pages\EditEmployee;
 use App\Filament\Resources\Employees\Pages\ExitEmployees;
@@ -63,6 +64,7 @@ class EmployeeResource extends Resource
             'edit' => EditEmployee::route('/{record}/edit'),
             'exit' => ExitEmployees::route('/exit'),
             'view' => ViewEmployee::route('/{record}'),
+            'number' => ChangeCardNumber::route('/{record}/number')
         ];
     }
 }
