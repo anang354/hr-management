@@ -62,8 +62,9 @@
                                 </td>
 
                                 <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">
-                                    <small>{{ \Carbon\Carbon::parse($item->clock_in)->format('H:i') }}</small> <br />
-                                    <small>{{ \Carbon\Carbon::parse($item->clock_out)->format('H:i') }}</small>
+                                        <small>{{ !is_null($item->clock_in) ? \Carbon\Carbon::parse($item->clock_in)->format('H:i') : '-' }}</small>
+                                        <br />
+                                        <small>{{ !is_null($item->clock_out) ? \Carbon\Carbon::parse($item->clock_out)->format('H:i') : '-' }}</small>
                                 </td>
 
                                 <td class="px-4 py-3 text-sm text-gray-700 dark:text-gray-200">

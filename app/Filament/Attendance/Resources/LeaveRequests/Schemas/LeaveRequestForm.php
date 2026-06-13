@@ -28,7 +28,7 @@ class LeaveRequestForm
                     ->options(function () {
                         $user = auth()->user();
                         return Employee::query()
-                            ->where('department_id', $user->department_id)
+                            //->where('department_id', $user->department_id)
                             ->where('join_date', '<=', now()->subYear())
                             ->get()
                             ->mapWithKeys(fn($emp) => [$emp->id => "{$emp->name} (Sisa: {$emp->remaining_leave} hari)"]);

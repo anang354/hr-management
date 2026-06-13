@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Libs\ZKLibrary;
 use App\Models\Machine;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class AttendanceUser extends Model
 {
@@ -51,67 +53,12 @@ class AttendanceUser extends Model
 
         return $maxId + 1; // Jika tidak ada lubang, lanjut ke ID berikutnya (5)
     }
-
-    // protected static function booted()
-    // {
-    //     static::created(function ($attendanceUser) {
-    //         $zk = new ZKLibrary(config('services.zkteco.ip'), config('services.zkteco.port'));
-    //         try {
-    //             $zk->connect();
-    //             $zk->disableDevice();
-    //             $zk->setUser(
-    //                 (int) $attendanceUser->biometric_id,
-    //                 (string) $attendanceUser->biometric_id,
-    //                 (string) $attendanceUser->display_name,
-    //                 (string) $attendanceUser->password,
-    //                 (int) $attendanceUser->privilege
-    //             );
-
-    //             $zk->enableDevice();
-    //             $zk->disconnect();
-    //         } catch (\Exception $e) {
-    //             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-    //         }
-    //     });
-    //     static::deleted(function ($attendanceUser) {
-    //         $zk = new ZKLibrary(config('services.zkteco.ip'), config('services.zkteco.port'));
-    //         try {
-    //             $zk->connect();
-    //             $zk->disableDevice();
-    //             $zk->deleteUser((int) $attendanceUser->biometric_id);
-    //             $zk->enableDevice();
-    //             $zk->disconnect();
-
-    //         } catch (\Exception $e) {
-    //             \Log::error("Gagal menghapus user di mesin: " . $e->getMessage());
-    //         }
-    //         $biometric_backup = BiometricBackup::where('biometric_id', $attendanceUser->biometric_id)->get();
-    //         if ($biometric_backup->count() > 0){
-    //             foreach ($biometric_backup as $backup) {
-    //                 $backup->delete();
-    //             }
-    //         }
-    //     });
-    //     static::updated(function ($attendanceUser) {
-    //         $zk = new ZKLibrary(config('services.zkteco.ip'), config('services.zkteco.port'));
-    //         try {
-    //             $zk->connect();
-    //             $zk->disableDevice();
-    //             $zk->setUser(
-    //                 (int) $attendanceUser->biometric_id,
-    //                 (string) $attendanceUser->biometric_id,
-    //                 (string) $attendanceUser->display_name,
-    //                 (string) $attendanceUser->password,
-    //                 (int) $attendanceUser->privilege
-    //             );
-
-    //             $zk->enableDevice();
-    //             $zk->disconnect();
-    //         } catch (\Exception $e) {
-    //             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
-    //         }
-    //     });
-    // }
+    protected function displayName(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => Str::title(strtolower($value)),
+        );
+    }
     protected static function booted()
     {
         // 1. EVENT: KETIKA USER BARU DIBUAT (CREATE)

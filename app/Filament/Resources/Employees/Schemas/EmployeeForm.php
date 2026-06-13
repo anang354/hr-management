@@ -24,47 +24,61 @@ class EmployeeForm
                     ->schema([
                         TextInput::make('name')
                             ->label(__('employee.fields.name'))
+                            ->columnSpan(3)
+                            ->required(),
+                        TextInput::make('nik')
+                            ->numeric()
+                            ->columnSpan(3)
+                            ->label(__('employee.fields.nik'))
                             ->required(),
                         Radio::make('gender')
                             ->options(Gender::class)
+                            ->columnSpan(2)
                             ->required(),
                         TextInput::make('email')
                             ->label(__('employee.fields.email'))
                             ->prefixIcon('heroicon-o-envelope')
                             ->email()
-                            ->required(),
-                        TextInput::make('nik')
-                            ->numeric()
-                            ->label(__('employee.fields.nik'))
+                            ->columnSpan(2)
                             ->required(),
                         TextInput::make('phone')
                             ->numeric()
+                            ->columnSpan(2)
                             ->label(__('employee.fields.phone'))
                             ->prefixIcon('heroicon-o-phone')
                             ->required(),
                         TextInput::make('address')
                             ->label(__('employee.fields.address'))
                             ->prefixIcon('heroicon-o-home')
+                            ->columnSpan(3)
                             ->required(),
                         TextInput::make('residential_address')
                             ->label(__('employee.fields.residential_address'))
                             ->prefixIcon('heroicon-o-map-pin')
+                            ->columnSpan(3)
                             ->required(),
                         TextInput::make('place_of_birth')
                             ->label(__('employee.fields.place_of_birth'))
+                            ->columnSpan(2)
                             ->required(),
                         DatePicker::make('birth_date')
                             ->label(__('employee.fields.birth_date'))
+                            ->columnSpan(2)
                             ->required(),
                         Select::make('religion')
+                            ->columnSpan(2)
                             ->label(__('employee.fields.religion'))
                             ->prefixIcon('heroicon-o-moon')
+                            ->native(false)
                             ->options(Religion::class)
                             ->required(),
                         TextInput::make('mothers_name')
+                            ->columnSpan(2)
                             ->label(__('employee.fields.mothers_name')),
                         Select::make('blood_group')
+                            ->columnSpan(2)
                             ->options(Employee::BLOOD_GROUP)
+                            ->native(false)
                             ->prefixIcon('heroicon-o-beaker')
                             ->label(__('employee.fields.blood_group')),
                         // Select::make('last_education')
@@ -72,13 +86,15 @@ class EmployeeForm
                         //     ->prefixIcon('heroicon-o-academic-cap')
                         //     ->label(__('employee.fields.last_education')),
                         TextInput::make('last_education')
+                            ->columnSpan(2)
                             ->prefixIcon('heroicon-o-academic-cap')
                             ->label(__('employee.fields.last_education')),
-                    ])->columnSpan(4)->columns(2),
+                    ])->columnSpan(4)->columns(6),
                 Section::make(__('employee.sections.company_information'))
                     ->columns(2)
                     ->schema([
                         Select::make('department_id')
+                            ->native(false)
                             ->columnSpanFull()
                             ->label(__('employee.fields.department'))
                             ->relationship('department', 'name')
@@ -87,6 +103,7 @@ class EmployeeForm
                             ->afterStateUpdated(fn($state, callable $set, callable $get) => static::updateNip($set, $get))
                             ->required(),
                         Select::make('employee_pos_id')
+                            ->native(false)
                             ->columnSpanFull()
                             ->label(__('employee.fields.position'))
                             ->relationship('employeePos', 'name')
@@ -95,7 +112,6 @@ class EmployeeForm
                             ->afterStateUpdated(fn($state, callable $set, callable $get) => static::updateNip($set, $get))
                             ->required(),
                         TextInput::make('job')
-                            ->columnSpanFull()
                             ->label(__('employee.fields.job'))
                             ->required(),
                         TextInput::make('employee_number')
@@ -105,6 +121,7 @@ class EmployeeForm
                             ->reactive(),
                         DatePicker::make('join_date')
                             ->label(__('employee.fields.join_date'))
+                            ->native(false)
                             ->required(),
                         DatePicker::make('exit_date')
                             ->hiddenOn('create')
@@ -113,7 +130,6 @@ class EmployeeForm
                             ->hiddenOn('create')
                             ->label(__('employee.fields.exit_reason')),
                         Radio::make('is_active')
-                            ->columnSpanFull()
                             ->inline()
                             ->boolean()
                             ->required()
@@ -134,20 +150,27 @@ class EmployeeForm
                 Section::make(__('employee.sections.other_information'))
                     ->schema([
                         Radio::make('bank_name')
+                            ->columnSpan(2)
                             ->options(Employee::BANK_NAME)
                             ->label(__('employee.fields.bank_name')),
                         TextInput::make('bank_account')
+                            ->columnSpan(2)
                             ->label(__('employee.fields.bank_account')),
                         TextInput::make('npwp')
+                            ->columnSpan(2)
                             ->label(__('employee.fields.npwp')),
                         TextInput::make('bpjs_kesehatan')
+                            ->columnSpan(2)
                             ->label(__('employee.fields.bpjs_kesehatan')),
                         TextInput::make('bpjs_ketenagakerjaan')
+                            ->columnSpan(2)
                             ->label(__('employee.fields.bpjs_ketenagakerjaan')),
                         Select::make('ptkp_status')
+                            ->columnSpan(2)
+                            ->native(false)
                             ->options(Employee::PTKP_STATUS)
                             ->label(__('employee.fields.ptkp_status')),
-                    ])->columnSpanFull()->columns(2),
+                    ])->columnSpanFull()->columns(6),
             ]);
     }
 

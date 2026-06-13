@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Spatie\Translatable\HasTranslations;
 
 class Employee extends Model
@@ -101,6 +102,12 @@ class Employee extends Model
                 }
                 return $cleanValue;
             },
+        );
+    }
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => Str::title(strtolower($value)),
         );
     }
     public function leaveRequests(): HasMany
