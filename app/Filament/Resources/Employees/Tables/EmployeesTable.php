@@ -21,6 +21,11 @@ class EmployeesTable
             ->defaultSort('created_at', 'desc')
             ->paginated([25,50,100])
             ->columns([
+                \Filament\Tables\Columns\ImageColumn::make('photo')
+                ->circular()
+                ->imageSize(45)
+                ->disk('public')
+                ->defaultImageUrl(url('images/user.png')),
                 TextColumn::make('employee_number')
                     ->label(__('employee.fields.employee_number'))
                     ->copyable()
