@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
         FilamentView::registerRenderHook(
-            PanelsRenderHook::SIDEBAR_NAV_START,
+            PanelsRenderHook::USER_MENU_BEFORE,
             function (): string {
                 // Proteksi null-safe (?->) jika sewaktu-waktu diakses saat user belum login
                 if (auth()->user()->role === 'admin' || auth()->user()->role === 'hr_all') {

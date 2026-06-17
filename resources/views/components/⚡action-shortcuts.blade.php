@@ -12,11 +12,12 @@ new class extends Component implements HasActions {
     public function goToPanel(): Action
     {
         return Action::make('gotopanel')
-            ->color('primary')
+            ->iconButton()
             ->icon('heroicon-o-arrows-right-left')
             ->keyBindings(['command+m', 'ctrl+m'])
-            ->extraAttributes(['class' => 'w-full'])
-            ->label(fn() => filament()->getCurrentPanel()->getId() === 'admin' ? 'Go to Attendance' : 'Go to Admin')
+            ->tooltip(fn() => filament()->getCurrentPanel()->getId() === 'admin' ? 'Go to Attendance Panel' : 'Go to Admin Panel')
+            // ->extraAttributes(['class' => 'w-full'])
+            // ->label(fn() => filament()->getCurrentPanel()->getId() === 'admin' ? 'Go to Attendance' : 'Go to Admin')
             ->url(fn() => filament()->getCurrentPanel()->getId() === 'admin' ? url('/attendance') : url('/admin'));
     }
 };
