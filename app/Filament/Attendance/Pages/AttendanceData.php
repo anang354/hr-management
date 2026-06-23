@@ -86,8 +86,9 @@ class AttendanceData extends Page implements HasTable
                     // ->color(fn($record) => $record->coming_late > 0 ? 'danger' : '')
                     ->width('5%')
                     ->label(__('attendances.fields.late')),
-                TextColumn::make('early_leave')
-                    ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
+                TextInputColumn::make('early_leave')
+                    // ->color(fn($record) => $record->early_leave > 0 ? 'danger' : '')
+                    ->width('5%')
                     ->label(__('attendances.fields.early_leave')),
                 TextInputColumn::make('overtime_hours')
                     ->width('5%')
