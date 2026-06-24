@@ -7,6 +7,9 @@ use App\Livewire\AttendancePage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return redirect()->route('filament.attendance.auth.login');
+});
+Route::get('/test-lib', function() {
     $ip = '132.168.65.251';
     $port = 4370;
 
