@@ -12,20 +12,16 @@ Route::get('/', function () {
 
     $zk = new \App\Libs\ZKLibrary($ip, $port);
 
-    $uid = 28; // Sesuai dengan isi paket biner (PIN=2)
-    $fingerIndex = 4; // WAJIB 9, karena isi biner aslinya adalah FID=9, bukan 8!
+    //$uid = 28; // Sesuai dengan isi paket biner (PIN=2)
+    //$fingerIndex = 4; // WAJIB 9, karena isi biner aslinya adalah FID=9, bukan 8!
 
     try {
             $zk->connect();
             $zk->disableDevice();
-            $template =$zk->getSerialNumber();
+            $data = $zk->getUser();
             $zk->enableDevice();
             $zk->disconnect();
-            if($template === null) {
-                dd('Gagal terhubung ke mesin');
-            } else {
-                dd('Serial Number: ' . $template);
-            }
+            dd($data);
     } catch (\Exception $e) {
         echo "Terjadi error: " . $e->getMessage();
     }

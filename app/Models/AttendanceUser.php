@@ -87,6 +87,7 @@ class AttendanceUser extends Model
             foreach ($activeMachines as $machine) {
                 self::syncUserToMachine($user, $machine, 'delete');
             }
+            $deleteBiometrics = BiometricBackup::where('biometric_id', $user->biometric_id)->delete();
         });
     }
     protected static function syncUserToMachine($user, Machine $machine, string $action)
