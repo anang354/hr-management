@@ -34,7 +34,7 @@ class Machines extends Page implements HasTable, HasForms
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Calculator;
     public static function canAccess(): bool
     {
-        return auth()->user()->isAdmin();
+        return auth()->user()->isAdmin() || auth()->user()->isHr();
     }
     protected function getMachineFormSchema(): array
     {
