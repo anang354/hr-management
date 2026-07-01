@@ -125,7 +125,7 @@ class AttendanceData extends Page implements HasTable
                     ->iconButton()
                     ->icon('heroicon-o-pencil-square')
                     ->color('warning')
-                    ->visible(fn($record) => $record->status === AttendanceStatus::Hadir || $record->status === AttendanceStatus::Lembur)
+                    // ->visible(fn($record) => $record->status === AttendanceStatus::Hadir || $record->status === AttendanceStatus::Lembur)
                     ->form([
                         \Filament\Forms\Components\Select::make('shift_id')
                             ->label('Pilih Shift yang Benar')
