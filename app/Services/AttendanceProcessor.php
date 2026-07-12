@@ -73,9 +73,16 @@ class AttendanceProcessor
                     $clockIn = Carbon::parse($targetAttendance->clock_in);
                     $metrics = $this->calculateExitMetrics($currentTime, $clockIn, $currentShift);
 
+                    // KODE LAMA
+                    // $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($targetDate);
+                    // $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
+                    // $overtimeFixHours = $isOffDayStart ? $metrics['overtime_hours'] * 2 : $metrics['overtime_hours'] * 1.5;
+
                     $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($targetDate);
+                    // Total jam lembur: Jika hari libur, hitung semua jam kerja. Jika hari biasa, hitung jam setelah shift selesai.
                     $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
-                    $overtimeFixHours = $isOffDayStart ? $metrics['overtime_hours'] * 2 : $metrics['overtime_hours'] * 1.5;
+                    // PERBAIKAN: Gunakan $overtimeFinal sebagai dasar perkalian untuk hari libur
+                    $overtimeFixHours = $isOffDayStart ? $overtimeFinal * 2 : $metrics['overtime_hours'] * 1.5;
 
                     $targetAttendance->update([
                         'clock_out' => $currentTime,
@@ -222,9 +229,14 @@ class AttendanceProcessor
                 $shift
             );
         }
+        // KODE LAMA
+        // $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($dateIn);
+        // $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
+        // $overtimeFixHours = $isOffDayStart ? $metrics['overtime_hours'] * 2 : $metrics['overtime_hours'] * 1.5;
+
         $isOffDayStart = $this->attendanceService->isHolidayOrWeekend($dateIn);
         $overtimeFinal = $isOffDayStart ? $metrics['working_hours'] : $metrics['overtime_hours'];
-        $overtimeFixHours = $isOffDayStart ? $metrics['overtime_hours'] * 2 : $metrics['overtime_hours'] * 1.5;
+        $overtimeFixHours = $isOffDayStart ? $overtimeFinal * 2 : $metrics['overtime_hours'] * 1.5;
 
         // Update data final
         $attendance->update([

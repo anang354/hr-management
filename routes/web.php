@@ -10,24 +10,7 @@ Route::get('/', function () {
     return redirect()->route('filament.attendance.auth.login');
 });
 Route::get('/test-lib', function() {
-    $ip = '132.168.65.251';
-    $port = 4370;
-
-    $zk = new \App\Libs\ZKLibrary($ip, $port);
-
-    //$uid = 28; // Sesuai dengan isi paket biner (PIN=2)
-    //$fingerIndex = 4; // WAJIB 9, karena isi biner aslinya adalah FID=9, bukan 8!
-
-    try {
-            $zk->connect();
-            $zk->disableDevice();
-            $data = $zk->getUser();
-            $zk->enableDevice();
-            $zk->disconnect();
-            dd($data);
-    } catch (\Exception $e) {
-        echo "Terjadi error: " . $e->getMessage();
-    }
+    return view('test');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('admin/contract-settings/preview', [ContractSettingsController::class, 'index'])->name('contract-settings-preview');

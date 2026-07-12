@@ -50,6 +50,51 @@ class AttendanceUsersTable
                 EditAction::make(),
                 DeleteAction::make(),
                  // Tombol Sync Biometric
+                //  Action::make('newSync')
+                //     ->label('Sync')
+                //     ->icon('heroicon-o-finger-print')
+                //     ->color('info')
+                //     ->requiresConfirmation()
+                //     ->modalHeading('Sync Fingerprint to Devices')
+                //     ->modalDescription(function ($record) {
+                //         $fingerprintCount = $record->biometricBackups()->count();
+                //         if ($fingerprintCount === 0) {
+                //             return "User {$record->biometric_id} ({$record->display_name}) has no fingerprint templates. Please register fingerprint on device first.";
+                //         }
+                //         return "This will sync {$fingerprintCount} fingerprint(s) for user {$record->biometric_id} ({$record->display_name}) to all active biometric devices. Continue?";
+                //     })
+                //     ->modalSubmitActionLabel('Sync Now')
+                //     ->visible(function ($record) {
+                //         return $record->biometricBackups()->count() > 0;
+                //     })
+                //     ->action(function ($record) {
+                //         try{
+                //             $response = \Illuminate\Support\Facades\Http::timeout(30)->get("http://localhost:3000/api/sync/templates/{$record->biometric_id}");
+                //             if($response->successful()) {
+                //                 $apiData = $response->json();
+                //                 $message = $apiData['message'] ??  'Successfull sync finger';
+                //                 Notification::make()
+                //                 ->title('Sync Successful')
+                //                 ->body("User {$record->biometric_id} synced: {$message}")
+                //                 ->success()
+                //                 ->send();
+                //             } else {
+                //                 $apiData = $response->json();
+                //                 $errorMessage = $apiData['message'] ??  'Failed sync finger';
+                //                 Notification::make()
+                //                 ->title('Sync Failed')
+                //                 ->body("User {$record->biometric_id} synced: {$errorMessage}")
+                //                 ->danger()
+                //                 ->send();
+                //             }
+                //         } catch (\Exception $e) {
+                //             Notification::make()
+                //                 ->title('Sync Failed')
+                //                 ->body("Could'nt connect to sync server {$e->getMessage()}")
+                //                 ->danger()
+                //                 ->send();
+                //         }
+                //     }),
                 Action::make('syncBiometric')
                     ->label('Sync Fingerprint')
                     ->icon('heroicon-o-finger-print')

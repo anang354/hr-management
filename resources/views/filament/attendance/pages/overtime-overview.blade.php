@@ -54,7 +54,7 @@
                                 IN</td>
                             @foreach ($dates as $dateKey => $val)
                                 <td
-                                    class="px-2 py-1 text-center border-r border-gray-100 border-b {{ $val['is_weekend'] ? 'bg-gray-50/30' : '' }}">
+                                    class="px-2 py-1 text-center border-r border-gray-100 border-b {{ $val['is_weekend'] || $val['is_holiday'] ? 'bg-orange-100/40' : '' }}">
                                     @if (isset($emp['data'][$dateKey]) && !is_null($emp['data'][$dateKey]->clock_in))
                                         {{ \Carbon\Carbon::parse($emp['data'][$dateKey]->clock_in)->format('H:i') }}
                                     @else
@@ -71,7 +71,7 @@
                                 OUT</td>
                             @foreach ($dates as $dateKey => $val)
                                 <td
-                                    class="px-2 py-1 text-center border-r border-gray-100 border-b {{ $val['is_weekend'] ? 'bg-gray-50/30' : '' }}">
+                                    class="px-2 py-1 text-center border-r border-gray-100 border-b {{ $val['is_weekend'] || $val['is_holiday'] ? 'bg-orange-100/40' : '' }}">
                                     @if (isset($emp['data'][$dateKey]) && !is_null($emp['data'][$dateKey]->clock_out))
                                         {{ \Carbon\Carbon::parse($emp['data'][$dateKey]->clock_out)->format('H:i') }}
                                     @else
@@ -88,7 +88,7 @@
                                 OT</td>
                             @foreach ($dates as $dateKey => $val)
                                 <td
-                                    class="px-2 py-1 text-center border-r border-gray-100 border-b font-medium {{ $val['is_weekend'] ? 'bg-gray-50/30' : '' }}">
+                                    class="px-2 py-1 text-center border-r border-gray-100 border-b font-medium {{ $val['is_weekend'] || $val['is_holiday'] ? 'bg-orange-100/40' : '' }}">
                                     {{ $emp['data'][$dateKey]->overtime_fix_hours ?? '0' }}
                                 </td>
                             @endforeach
@@ -101,7 +101,7 @@
                                 CL/EL</td>
                             @foreach ($dates as $dateKey => $val)
                                 <td
-                                    class="px-2 py-1 text-center border-r border-gray-100 border-b text-red-400 {{ $val['is_weekend'] ? 'bg-gray-50/30' : '' }}">
+                                    class="px-2 py-1 text-center border-r border-gray-100 border-b text-red-400 {{ $val['is_weekend'] || $val['is_holiday'] ? 'bg-orange-100/40' : '' }}">
                                     {{ intval($emp['data'][$dateKey]->coming_late ?? 0) + intval($emp['data'][$dateKey]->early_leave ?? 0) }}
                                 </td>
                             @endforeach
