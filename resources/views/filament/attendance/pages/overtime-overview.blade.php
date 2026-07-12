@@ -6,6 +6,9 @@
             <p class="text-sm font-medium text-slate-600">From : {{ \Carbon\Carbon::parse($fromDate)->format('d M Y') }}</p>
             <p class="text-sm font-medium text-slate-600">To : {{ \Carbon\Carbon::parse($toDate)->format('d M Y') }}</p>
         </div>
+        <p class="mx-4 text-sm font-medium text-red-400">
+            NOTE: Hitungan Overtime belum bersifat final, data akan dicocokkan sesuai dengan form lembur karyawan.
+        </p>
     </div>
     <div class="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden mx-4">
         <div class="overflow-x-auto">
