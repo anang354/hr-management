@@ -103,6 +103,9 @@ class AttendanceData extends Page implements HasTable
                     ->label(__('attendances.fields.status')),
             ])
             ->filters([
+                SelectFilter::make('department')
+                    ->relationship('attendance_user.employee.department', 'name')
+                    ->label(__('attendances.fields.department')),
                 SelectFilter::make('attendance_shift_id')
                     ->label(__('attendances.fields.shift'))
                     ->relationship('attendance_shift', 'name'),
