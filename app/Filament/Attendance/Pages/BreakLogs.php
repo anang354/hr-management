@@ -60,6 +60,11 @@ class BreakLogs extends Page implements HasTable
             ->filters([
                 SelectFilter::make('department')
                     ->relationship('attendanceUser.employee.department', 'name'),
+                SelectFilter::make('type')
+                    ->options([
+                        2 => 'Keluar',
+                        3 => 'Kembali',
+                    ]),
             ])
             ->actions([
                 // Define your table actions here

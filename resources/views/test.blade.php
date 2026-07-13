@@ -7,31 +7,31 @@
             <p class="text-sm font-medium text-slate-600">To : </p>
         </div>
 </div>
-<div class="w-full max-h-96 overflow-auto border border-gray-200 rounded-lg">
+<div class="w-full overflow-auto border border-gray-200 rounded-lg">
   <table class="w-full border-collapse text-left text-sm text-gray-500">
     <thead>
         <tr class="bg-gray-50 border-b border-gray-200">
             <th
-                class="sticky left-0 z-30 bg-gray-50 px-4 py-3 border-r border-gray-100 font-bold text-gray-700">
+                class="bg-gray-50 px-4 py-3 border-r border-gray-100 font-bold text-gray-700">
                 NO</th>
             <th
-                class="sticky left-0 z-30 bg-gray-50 px-4 py-3 border-r border-gray-100 font-bold text-gray-700 min-w-[180px]">
+                class="bg-gray-50 px-4 py-3 border-r border-gray-100 font-bold text-gray-700 min-w-[180px]">
                 EMPLOYEE 员工</th>
             <th
-                class="sticky left-[180px] z-30 bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
+                class="bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
                 TYPE</th>
             @for($day = 1; $day <= 31; $day++)
                 <th
-                    class="sticky top-0 z-10 px-2 py-2 text-center border-r border-gray-100 min-w-[65px]">
+                    class="px-2 py-2 text-center border-r border-gray-100 min-w-[65px]">
                     <div class="text-gray-400 font-medium">{{ $day }}</div>
                     <div class="text-gray-700 font-bold uppercase">{{ $day }}</div>
                 </th>
             @endfor
             <th
-                class="sticky left-[180px] z-30 bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
+                class="bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
                 Total OT 总额</th>
             <th
-                class="sticky left-[180px] z-30 bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
+                class="bg-gray-50 px-2 py-3 border-r border-gray-100 font-bold text-gray-700 w-[60px]">
                 Total CL/EL</th>
         </tr>
     </thead>
