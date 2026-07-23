@@ -12,6 +12,7 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class AttendanceData extends Page implements HasTable
 {
@@ -37,6 +38,29 @@ class AttendanceData extends Page implements HasTable
     {
         return [
             \App\Filament\Actions\Attendances\AttendanceOverview::make(),
+            \Filament\Actions\ExportAction::make('download')
+                ->columnMapping(false)
+                ->exporter(\App\Filament\Exports\AttendanceDataExporter::class)
+                ->modalHeading('Download Attendance Data to Excel')
+                ->label('Download Excel')
+                ->icon('heroicon-o-document-arrow-down')
+                ->color('success')
+                ->modalWidth('2xl')
+                ->modifyQueryUsing(function (Builder $query, array $data) {
+                    if(!empty($data['date_from']) && !empty($data['date_to'])) {
+                        $query->whereBetween('date', [$data['date_from'], $data['date_to']]);
+                    }
+                    if(!empty($data['department_id'])) {
+                        $query->whereHas('attendance_user.employee', function ($q) use ($data) {
+                            $q->where('department_id', $data['department_id']);
+                        });
+                    }
+                    if(!empty($data['user_id'])) {
+                        $query->where('user_id', $data['user_id']);
+                    }
+                    return $query;
+                }),
+                // ->extraAttributes(['class' => '!text-white']),
         ];
     }
 

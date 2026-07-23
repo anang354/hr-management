@@ -19,7 +19,7 @@ class BreakLogs extends Page implements HasTable
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFilm;
     public static function getNavigationGroup(): ?string
     {
-        return __('attendances.navigation_group');
+        return 'Breaks';
     }
 
     public static function canAccess(): bool
