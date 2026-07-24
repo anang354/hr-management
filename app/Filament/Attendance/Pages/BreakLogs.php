@@ -67,7 +67,34 @@ class BreakLogs extends Page implements HasTable
                     ]),
             ])
             ->actions([
-                // Define your table actions here
+                \Filament\Actions\Action::make('edit')
+                    ->label('Edit')
+                    ->color('warning')
+                    ->iconButton()
+                    ->icon('heroicon-o-pencil-square')
+                    ->modalWidth('sm')
+                    ->form([
+                        \Filament\Forms\Components\Select::make('type')
+                            ->label('Pilih Type yang Benar')
+                            ->options(
+                                [
+                                    2 => 'Keluar',
+                                    3 => 'Kembali',
+                                ]
+                            )
+                            ->required()
+                            ->default(fn ($record) => $record->type),
+                    ])
+                    ->action(function($record, array $data) {
+                        $d = \App\Models\BreakLog::find($record->id);
+                        $d->type = $data['type'];
+                        $d->save();
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Break Log Updated')
+                            ->success()
+                            ->send();
+                    })
             ])
             ->bulkActions([
                 // Define your table bulk actions here
