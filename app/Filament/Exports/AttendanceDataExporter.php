@@ -111,10 +111,10 @@ class AttendanceDataExporter extends Exporter
                 ->label('Department 部门'),
             ExportColumn::make('clock_in')
                 ->label('Clock-In 上班打卡')
-                ->formatStateUsing(fn($state) => $state !== null ? date('H:i', strtotime($state)): '-'),
+                ->formatStateUsing(fn($state) => $state ? date('H:i', strtotime($state)) : null),
             ExportColumn::make('clock_out')
                 ->label('Clock-Out 下班打卡')
-                ->formatStateUsing(fn($state) => $state !== null ? date('H:i', strtotime($state)): '-'),
+                ->formatStateUsing(fn($state) => $state ? date('H:i', strtotime($state)) : null),
             ExportColumn::make('coming_late')
                 ->label('Coming Late 迟到'),
             ExportColumn::make('early_leave')
