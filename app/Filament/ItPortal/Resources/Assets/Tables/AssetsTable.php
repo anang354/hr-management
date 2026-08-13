@@ -17,6 +17,7 @@ class AssetsTable
             ->columns([
                 TextColumn::make('asset_code')
                     ->label(__('it_portal.assets.asset_code'))
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('item.category.name')
                     ->label(__('it_portal.assets.category')),
@@ -60,6 +61,7 @@ class AssetsTable
                     ->searchable(),
                 TextColumn::make('ip_address')
                     ->label(__('it_portal.assets.ip_address'))
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('date_of_entry')
                     ->label(__('it_portal.assets.date_of_entry'))
