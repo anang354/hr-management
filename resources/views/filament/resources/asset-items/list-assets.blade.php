@@ -64,10 +64,10 @@
 
                     {{-- Action Buttons (Edit / View / Delete) --}}
                     <div class="flex items-center justify-between gap-2 pt-3 mt-4 border-t border-gray-100 dark:border-gray-800">
-                        <p class="text-sm">Total Items: {{ $record->asset_count }}</p>
+                        <p class="text-sm">{{ __('it_portal.total_items') }}: {{ $record->asset_count }}</p>
                         <a href="{{ static::$resource::getUrl('edit', ['record' => $record]) }}"
                            class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-400">
-                            Edit
+                            {{ __('it_portal.actions.edit') }}
                         </a>
                     </div>
                 </div>

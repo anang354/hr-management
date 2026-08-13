@@ -4,6 +4,14 @@ return [
     'name' => 'Name',
     'code' => 'Code',
     'description' => 'Description',
+    'total_items' => 'Total Items',
+    'menu' => [
+        'asset' => 'Asset',
+        'asset_transfer' => 'Asset Transfer',
+        'asset_item' => 'Asset Item',
+        'asset_category' => 'Asset Category',
+        'asset_location' => 'Asset Location',
+    ],
     'assets' => [
         'navigation_group' => 'Asset Management',
         'asset_code' => 'Asset Code',
@@ -29,5 +37,8 @@ return [
         'good' => 'Good',
         'damaged' => 'Damaged',
         'needs_repair' => 'Needs Repair',
+    ],
+    'actions' => [
+        'edit' => 'Edit',
     ],
 ];
