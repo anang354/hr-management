@@ -49,6 +49,7 @@ class AssetTransfer extends Page implements HasForms
                                 if ($asset) {
                                     $set('asset_location_id', $asset->asset_location_id);
                                     $set('user', $asset->user);
+                                    $set('ip_address', $asset->ip_address);
                                 }
                             }),
                         Select::make('asset_location_id')
@@ -65,8 +66,13 @@ class AssetTransfer extends Page implements HasForms
                             ->afterStateHydrated(function ($state, callable $set) {
                                 $set('user', $state);
                             }),
+                        TextInput::make('ip_address')
+                            ->label(__('it_portal.assets.ip_address'))
+                            ->afterStateHydrated(function ($state, callable $set) {
+                                $set('ip_address', $state);
+                            }),
                     ])
-                    ->columns(3)
+                    ->columns(4)
                     ->addActionLabel('Add Asset')
                     ->reorderable(false)
             ])
@@ -93,7 +99,8 @@ class AssetTransfer extends Page implements HasForms
             $count++;
             Asset::where('id', $item['asset_code'])->update([
                 'asset_location_id' => $item['asset_location_id'],
-                'user' => $item['user']
+                'user' => $item['user'],
+                'ip_address' => $item['ip_address'],
             ]);
         }
 
