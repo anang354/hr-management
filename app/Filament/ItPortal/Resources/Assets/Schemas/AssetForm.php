@@ -30,7 +30,10 @@ class AssetForm
                     ->native(false)
                     ->required()
                     ->live()
-                    ->afterStateUpdated(function (Set $set, $state) {
+                    ->afterStateUpdated(function (Set $set, $state, $livewire) {
+                        if ($livewire && $livewire->record) {
+                            return;
+                        }
                         $set('specifications', []);
 
                         if (! $state) {
@@ -58,6 +61,8 @@ class AssetForm
                     ->native(false)
                     ->required(),
                 TextInput::make('asset_code')
+                    // disable saat menu edit, enable saat menu create
+                    // ->disabled(fn ($livewire) => $livewire && $livewire->record !== null)
                     ->default(function (Get $get) {
                         $itemId = $get('asset_item_id');
                         if (! $itemId) {
