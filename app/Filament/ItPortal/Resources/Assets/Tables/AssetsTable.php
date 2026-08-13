@@ -5,6 +5,7 @@ namespace App\Filament\ItPortal\Resources\Assets\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ExportBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -100,6 +101,10 @@ class AssetsTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
+                    ExportBulkAction::make()
+                        ->label('Download')
+                        ->color('success')
+                        ->exporter(\App\Filament\Exports\AssetExporter::class),
                 ]),
             ]);
     }
