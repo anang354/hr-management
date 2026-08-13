@@ -7,6 +7,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\PaginationMode;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
@@ -19,6 +20,8 @@ class AssetItemsTable
                 $q->where('model', 'like', "%{$search}%")
                 ->orWhere('brand', 'like', "%{$search}%");
             }))
+            ->defaultPaginationPageOption(25)
+            ->paginationMode(PaginationMode::Simple)
             ->columns([
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('brand')->searchable(),
