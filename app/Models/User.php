@@ -26,6 +26,9 @@ class User extends Authenticatable implements FilamentUser
         if ($panel->getId() === 'attendance') {
             return in_array($this->role, ['admin', 'hr_all', 'hr', 'manager', 'user', 'leader']);
         }
+        if($panel->getId() === 'it-portal') {
+            return $this->role === 'admin';
+        }
         return false;
     }
 
