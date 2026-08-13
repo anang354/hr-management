@@ -79,14 +79,19 @@ class AssetsTable
                     ->searchable(),
             ])
             ->filters([
+                SelectFilter::make('location')
+                    ->label(__('it_portal.assets.location'))
+                    ->relationship('location', 'name'),
                 SelectFilter::make('item.category')
                     ->label(__('it_portal.assets.category'))
                     ->relationship('item.category', 'name'),
                 SelectFilter::make('status')
                     ->label(__('it_portal.assets.status'))
+                    ->multiple()
                     ->options(\App\Models\Asset::STATUS),
                 SelectFilter::make('condition')
                     ->label(__('it_portal.assets.condition'))
+                    ->multiple()
                     ->options(\App\Models\Asset::CONDITION),
             ])
             ->recordActions([

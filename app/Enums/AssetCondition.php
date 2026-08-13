@@ -1,10 +1,11 @@
 <?php
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasIcon;
+use Filament\Support\Contracts\HasLabel;
 
-enum AssetCondition: string implements HasLabel, HasColor
+enum AssetCondition: string implements HasLabel, HasColor, HasIcon
 {
     case Good = 'good';
     case Damaged = 'damaged';
@@ -26,5 +27,12 @@ enum AssetCondition: string implements HasLabel, HasColor
             self::Repair => 'warning',
         };
     }
-
+    public function getIcon(): string
+    {
+        return match ($this) {
+            self::Good => 'heroicon-o-check-badge',
+            self::Damaged => 'heroicon-o-x-circle',
+            self::Repair => 'heroicon-o-wrench-screwdriver',
+        };
+    }
 }
