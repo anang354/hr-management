@@ -18,6 +18,9 @@ class AssetCategoriesTable
                     ->label(__('it_portal.name')),
                 TextColumn::make('code')
                     ->label(__('it_portal.code')),
+                TextColumn::make('assets_count')
+                    ->counts('assets')
+                    ->label(__('it_portal.total_items')),
             ])
             ->filters([
                 //
