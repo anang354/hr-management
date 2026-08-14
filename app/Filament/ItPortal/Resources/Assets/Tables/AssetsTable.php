@@ -78,6 +78,10 @@ class AssetsTable
                     ->label(__('it_portal.assets.notes'))
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
+                TextColumn::make('created_at')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('location')
