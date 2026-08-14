@@ -27,6 +27,7 @@ class AssetsTable
                     ->formatStateUsing(fn ($record) => $record->item->brand . ' ' . $record->item->model),
                 TextColumn::make('specifications')
                     ->toggleable()
+                    ->searchable()
                     ->label(__('it_portal.assets.specifications'))
                     ->getStateUsing(function ($record) {
                         $specifications = $record->specifications;
