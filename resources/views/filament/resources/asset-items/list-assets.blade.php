@@ -62,6 +62,13 @@
                         {{ $record->category->name ?? 'Uncategorized' }}
                     </p>
 
+                    <div class="flex gap-2 mt-2">
+                        {!! $record->active_asset_count != 0 ? '<span class="text-xs bg-green-500/50 border border-green-600 p-1 rounded-md">' . $record->active_asset_count . ' Active</span>' : '' !!}
+                        {!! $record->inactive_asset_count != 0 ? '<span class="text-xs bg-sky-500/50 border border-sky-600 p-1 rounded-md">' . $record->inactive_asset_count . ' Inactive</span>' : '' !!}
+                        {!! $record->maintenance_asset_count != 0 ? '<span class="text-xs bg-yellow-500/50 border border-yellow-600 p-1 rounded-md">' . $record->maintenance_asset_count . ' Maintenance</span>' : '' !!}
+                        {!! $record->retired_asset_count != 0 ? '<span class="text-xs bg-red-500/50 border border-red-600 p-1 rounded-md">' . $record->retired_asset_count . ' Retired</span>' : '' !!}
+                    </div>
+
                     {{-- Action Buttons (Edit / View / Delete) --}}
                     <div class="flex items-center justify-between gap-2 pt-3 mt-4 border-t border-gray-100 dark:border-gray-800">
                         <p class="text-sm">{{ __('it_portal.total_items') }}: {{ $record->asset_count }}</p>

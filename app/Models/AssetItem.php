@@ -28,4 +28,20 @@ class AssetItem extends Model
     {
         return $this->assets()->count();
     }
+    public function getActiveAssetCountAttribute()
+    {
+        return $this->assets()->where('status', 'active')->count();
+    }
+    public function getInactiveAssetCountAttribute()
+    {
+        return $this->assets()->where('status', 'inactive')->count();
+    }
+    public function getMaintenanceAssetCountAttribute()
+    {
+        return $this->assets()->where('status', 'maintenance')->count();
+    }
+    public function getRetiredAssetCountAttribute()
+    {
+        return $this->assets()->where('status', 'retired')->count();
+    }
 }

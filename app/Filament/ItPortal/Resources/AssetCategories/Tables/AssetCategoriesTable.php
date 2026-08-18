@@ -21,6 +21,22 @@ class AssetCategoriesTable
                 TextColumn::make('assets_count')
                     ->counts('assets')
                     ->label(__('it_portal.total_items')),
+                TextColumn::make('active_assets_count')
+                    ->counts('activeAssets')
+                    ->color('success')
+                    ->label(__('it_portal.asset_status.active')),
+                 TextColumn::make('inactive_assets_count')
+                    ->counts('inactiveAssets')
+                    ->color('info')
+                    ->label(__('it_portal.asset_status.inactive')),
+                 TextColumn::make('maintenance_assets_count')
+                    ->counts('maintenanceAssets')
+                    ->color('warning')
+                    ->label(__('it_portal.asset_status.maintenance')),
+                 TextColumn::make('retired_assets_count')
+                    ->color('danger')
+                    ->counts('retiredAssets')
+                    ->label(__('it_portal.asset_status.retired')),
             ])
             ->filters([
                 //

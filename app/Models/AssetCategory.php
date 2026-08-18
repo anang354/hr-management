@@ -27,6 +27,50 @@ class AssetCategory extends Model
             'id'
         );
     }
+    public function activeAssets(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Asset::class,
+            AssetItem::class,
+            'asset_category_id',
+            'asset_item_id',
+            'id',
+            'id'
+        )->where('status', 'active');
+    }
+    public function inactiveAssets(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Asset::class,
+            AssetItem::class,
+            'asset_category_id',
+            'asset_item_id',
+            'id',
+            'id'
+        )->where('status', 'inactive');
+    }
+    public function maintenanceAssets(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Asset::class,
+            AssetItem::class,
+            'asset_category_id',
+            'asset_item_id',
+            'id',
+            'id'
+        )->where('status', 'maintenance');
+    }
+    public function retiredAssets(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Asset::class,
+            AssetItem::class,
+            'asset_category_id',
+            'asset_item_id',
+            'id',
+            'id'
+        )->where('status', 'retired');
+    }
     public function totalAssets(): int
     {
         return $this->assets()->count();
